@@ -60,6 +60,7 @@ a:focus-visible {
   padding: 1.5rem 0 0;
   font-family: Archivo, Arial, sans-serif;
   font-weight: 500;
+  align-items: center;
 }
 .top a { text-decoration: none; }
 .top a:hover { text-decoration: underline; }
@@ -106,7 +107,7 @@ a:focus-visible {
   background: var(--margin);
 }
 
-/* Passport-style photo, taped to the label */
+/* Passport-style photo, taped to the page */
 .photo {
   position: relative;
   flex: 0 0 10rem;
@@ -116,11 +117,11 @@ a:focus-visible {
 .photo img {
   display: block;
   width: 100%;
+  height: auto;
   aspect-ratio: 4 / 5;
   object-fit: cover;
   background: var(--ruling);
   border: 1px solid var(--ink);
-  transform: rotate(2deg);
 }
 .photo::before {
   content: "";
@@ -132,7 +133,6 @@ a:focus-visible {
   margin-left: -2rem;
   background: rgba(191, 211, 238, 0.85);
   border: 1px solid rgba(20, 32, 107, 0.15);
-  transform: rotate(-3deg);
   z-index: 1;
 }
 
@@ -152,6 +152,7 @@ a:focus-visible {
   animation: fade 0.6s ease 0.1s both;
 }
 .hello {
+  width: fit-content;
   margin: 0;
   font-family: Archivo, Arial, sans-serif;
   font-weight: 800;
@@ -161,23 +162,24 @@ a:focus-visible {
   color: var(--ink);
 }
 .hello .w { display: inline-block; white-space: nowrap; margin-right: 0.22em; }
+.hello .w:last-of-type { margin-right: 0; }
 .hello .ch {
   display: inline-block;
   animation: rise 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   animation-delay: calc(var(--i) * 55ms + 250ms);
 }
-.scribble { display: block; width: min(22rem, 85%); height: auto; margin: 0.4rem 0 1.25rem; overflow: visible; }
+.scribble { display: block; width: 100%; height: 0.5rem; margin: 0.6rem 0 0; overflow: visible; }
 .scribble path {
   fill: none;
   stroke: var(--margin);
-  stroke-width: 3.5;
+  stroke-width: 3;
   stroke-linecap: round;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
   animation: draw 0.8s ease 1.3s forwards;
 }
 .role {
-  margin: 0;
+  margin: 1.1rem 0 0;
   min-height: 1.5em;
   font-family: Archivo, Arial, sans-serif;
   font-weight: 500;
@@ -215,8 +217,9 @@ a:focus-visible {
   border: 0;
 }
 
-.btn-download { display: inline-flex; align-items: center; gap: 0.5rem; }
-.btn-download svg {
+.btn.btn-download { display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; }
+.btn.btn-download svg {
+  flex: 0 0 auto;
   width: 1.1rem;
   height: 1.1rem;
   fill: none;
@@ -515,6 +518,8 @@ dd { margin: 0; }
   .photo { order: -1; width: 8rem; }
   .role { min-height: 3em; }
   .hire { grid-template-columns: 1fr; }
+  .actions, .send { flex-direction: column; align-items: stretch; }
+  .actions .btn, .send .btn { text-align: center; justify-content: center; }
   .intro { font-size: 1.125rem; }
 }
 
@@ -580,25 +585,21 @@ dd { margin: 0; }
   100% { box-shadow: 0 0 0 0 transparent; }
 }
 @keyframes blink-soft { 50% { opacity: 0.3; } }
-@keyframes bob { 50% { translate: 0 -5px; } }
 @keyframes nudge { 50% { transform: translateY(3px); } }
 
 @media (prefers-reduced-motion: no-preference) {
 
-  /* Pictures: tilted like prints pasted into the book, straighten and lift on hover */
+  /* Pictures: sit square on the page and lift on hover */
   .shot {
-    rotate: -0.7deg;
-    transition: transform 0.35s var(--lift), box-shadow 0.35s var(--lift), rotate 0.35s var(--lift);
+    transition: transform 0.35s var(--lift), box-shadow 0.35s var(--lift);
   }
-  article:nth-child(even) .shot { rotate: 0.7deg; }
   .shot:hover,
   .shot:focus-within {
-    rotate: 0deg;
     transform: translateY(-5px);
     box-shadow: 7px 11px 0 var(--shadow), 0 18px 30px -10px var(--glow);
   }
   .shot img { transition: scale 0.7s var(--lift); }
-  .shot:hover img { scale: 1.14; }
+  .shot:hover img { scale: 1.03; }
   .shot::after {               /* light sweeping over the print on hover */
     content: "";
     position: absolute;
@@ -620,7 +621,7 @@ dd { margin: 0; }
     background-size: 0% 100%;
     transition: background-size 0.3s var(--lift), color 0.3s ease, transform 0.25s var(--lift), border-color 0.2s ease;
   }
-  .stack li:hover { background-size: 100% 100%; color: var(--on-ink); border-color: var(--ink); transform: translateY(-3px) rotate(-2deg); }
+  .stack li:hover { background-size: 100% 100%; color: var(--on-ink); border-color: var(--ink); transform: translateY(-3px); }
 
   .skillgrid > * {
     transition: transform 0.35s var(--lift), box-shadow 0.35s var(--lift), border-color 0.25s ease;
@@ -695,17 +696,13 @@ dd { margin: 0; }
       to   { opacity: 1; transform: none; }
     }
     @keyframes pop {
-      from { opacity: 0; transform: scale(0.4) rotate(-10deg) translateY(0.6rem); }
-      60%  { opacity: 1; transform: scale(1.08) rotate(2deg); }
+      from { opacity: 0; transform: scale(0.4) translateY(0.6rem); }
+      60%  { opacity: 1; transform: scale(1.08); }
       to   { opacity: 1; transform: none; }
     }
     @keyframes print-in {        /* the picture is wiped in like a print being laid down */
       from { opacity: 0; clip-path: inset(0 100% 0 0); transform: translateY(2.5rem) scale(0.93); }
       to   { opacity: 1; clip-path: inset(-1.5rem); transform: none; }
-    }
-    @keyframes drift {           /* the picture slides slowly inside its frame as you scroll */
-      from { transform: translateY(-3%); }
-      to   { transform: translateY(3%); }
     }
     @keyframes pen-line {
       from { transform: scaleX(0); }
@@ -716,8 +713,8 @@ dd { margin: 0; }
       to   { background-size: 100% 3px; }
     }
     @keyframes doodle {
-      from { transform: translateY(-0.75rem) rotate(-25deg) scale(0.75); }
-      to   { transform: translateY(1.75rem) rotate(25deg) scale(1.1); }
+      from { transform: translateY(-0.75rem) scale(0.75); }
+      to   { transform: translateY(1.75rem) scale(1.1); }
     }
     @keyframes progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
@@ -750,7 +747,6 @@ dd { margin: 0; }
       animation-name: print-in;
       animation-range: entry 0px entry 300px;
     }
-    .shot img { scale: 1.07; animation: drift linear both; animation-timeline: view(); animation-range: cover 0% cover 100%; }
 
     /* headings: the red pen stroke draws itself */
     .row > h2::after { animation: pen-line linear both; animation-timeline: view(); animation-range: entry 20px entry 220px; }
@@ -760,19 +756,11 @@ dd { margin: 0; }
     .stack li:nth-child(2) { --k: 1; } .stack li:nth-child(3) { --k: 2; } .stack li:nth-child(4) { --k: 3; }
     .stack li:nth-child(5) { --k: 4; } .stack li:nth-child(6) { --k: 5; } .stack li:nth-child(7) { --k: 6; }
 
-    /* skill cards rise in, then float gently while you read */
+    /* skill cards rise in once and then stay put */
     .skillgrid > * {
-      animation-name: reveal-up, bob;
-      animation-timeline: view(), auto;
-      animation-range: entry 0px entry 170px, normal;
-      animation-duration: auto, 6s;
-      animation-timing-function: ease-out, ease-in-out;
-      animation-iteration-count: 1, infinite;
-      animation-fill-mode: backwards, none;
-      animation-delay: 0s, 0s;
+      animation-name: reveal-up;
+      animation-range: entry 0px entry 170px;
     }
-    .skillgrid > :nth-child(2) { animation-delay: 0s, -2s; }
-    .skillgrid > :nth-child(3) { animation-delay: 0s, -4s; }
 
     /* course list slides in line by line */
     .plain li { animation-name: slide-l; animation-range: entry calc(var(--k, 0) * 25px) entry calc(110px + var(--k, 0) * 25px); }
@@ -786,7 +774,7 @@ dd { margin: 0; }
     .hire > :nth-child(5) { --k: 2; }
     .hire > :nth-child(n+6) { --k: 3; }
 
-    /* margin doodles turn and drift as their section scrolls past */
+    /* margin doodles drift as their section scrolls past */
     .row::after { animation: doodle linear both; animation-timeline: view(); animation-range: cover 0% cover 100%; }
 
     /* thin red progress line across the top of the screen */
