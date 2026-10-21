@@ -11,7 +11,6 @@
   --on-ink: #fff;
   --ink-hover: #0c1550;
   --wash: #e8f0fb;
-  --line: rgba(191, 211, 238, 0.4);
   --shadow: #14206b;
   --live: #1f9d55;
   --building: #c78a00;
@@ -25,9 +24,7 @@ html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  background-color: var(--paper);
-  background-image: linear-gradient(var(--line) 1px, transparent 1px);
-  background-size: 100% 2rem;
+  background: var(--paper);
   color: var(--text);
   font: 1.0625rem/1.7 Literata, Georgia, "Times New Roman", serif;
 }
@@ -66,6 +63,35 @@ a:focus-visible {
 }
 .top a { text-decoration: none; }
 .top a:hover { text-decoration: underline; }
+
+/* Theme toggle, at the right end of the navigation */
+.theme-toggle {
+  margin-left: auto;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1.5px solid var(--ruling);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+}
+.theme-toggle:hover { border-color: var(--ink); }
+.theme-toggle:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.theme-toggle svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.theme-toggle .sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .sun { display: block; }
+:root[data-theme="dark"] .theme-toggle .moon { display: none; }
 
 /* Cover: the label on the front of an exercise book */
 .cover { padding: 3rem 0 3.5rem; }
@@ -362,9 +388,9 @@ dd { margin: 0; }
   .links { grid-template-columns: 1fr; }
 }
 
-/* Dark mode follows the visitor's device setting */
-@media screen and (prefers-color-scheme: dark) {
-  :root {
+/* Dark mode: set by the toggle button (which starts from the device setting) */
+@media screen {
+  :root[data-theme="dark"] {
     color-scheme: dark;
     --paper: #12151f;
     --surface: #1a1f2e;
@@ -376,12 +402,11 @@ dd { margin: 0; }
     --on-ink: #0d1226;
     --ink-hover: #c4d1ff;
     --wash: #232c45;
-    --line: rgba(120, 150, 210, 0.1);
     --shadow: #2c3a57;
     --live: #3ec47c;
     --building: #e0a82e;
   }
-  .photo::before { background: rgba(120, 150, 210, 0.55); }
+  :root[data-theme="dark"] .photo::before { background: rgba(120, 150, 210, 0.55); }
 }
 
 /* A small lift on the screenshot that links to the live site */
@@ -396,9 +421,8 @@ dd { margin: 0; }
 
 /* Print or save as PDF: a clean one-column CV */
 @media print {
-  body { background-image: none; }
   .label, .shot img { box-shadow: none; }
-  .top, .actions, .skip { display: none; }
+  .top, .actions, .skip, .theme-toggle { display: none; }
   .label { transform: none; }
   .photo img { transform: none; }
   .sheet::before { display: none; }
