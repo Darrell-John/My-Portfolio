@@ -1,0 +1,305 @@
+/* Palette taken from a school exercise book: white page, blue ruling,
+   red margin line, ballpoint-blue ink. */
+:root {
+  --paper: #fbfcfe;
+  --ruling: #bfd3ee;
+  --margin: #cf4037;
+  --ink: #14206b;
+  --text: #1d2330;
+  --muted: #556075;
+  --margin-col: 9rem;
+  --gap: 2.5rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--text);
+  font: 1.0625rem/1.7 Literata, Georgia, "Times New Roman", serif;
+}
+
+.page {
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: 0 1.25rem 3rem;
+}
+
+a { color: var(--ink); text-underline-offset: 0.2em; }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.skip {
+  position: absolute;
+  left: -999px;
+  top: 0.5rem;
+  background: var(--ink);
+  color: #fff;
+  padding: 0.5rem 0.75rem;
+}
+.skip:focus { left: 0.5rem; z-index: 10; }
+
+/* Navigation */
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.75rem;
+  padding: 1.5rem 0 0;
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 500;
+}
+.top a { text-decoration: none; }
+.top a:hover { text-decoration: underline; }
+
+/* Cover: the label on the front of an exercise book */
+.cover { padding: 3rem 0 3.5rem; }
+
+.label {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.75rem;
+  max-width: 44rem;
+  background: #fff;
+  border: 2px solid var(--ink);
+  padding: 1.5rem 1.75rem 1.75rem;
+  transform: rotate(-1deg);
+}
+.fields { flex: 1; min-width: 0; }
+
+/* Passport-style photo, taped to the label */
+.photo {
+  position: relative;
+  flex: 0 0 10rem;
+  margin: 0.25rem 0 0;
+  order: 2;
+}
+.photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  background: var(--ruling);
+  border: 1px solid var(--ink);
+  transform: rotate(2deg);
+}
+.photo::before {
+  content: "";
+  position: absolute;
+  top: -0.7rem;
+  left: 50%;
+  width: 4rem;
+  height: 1.3rem;
+  margin-left: -2rem;
+  background: rgba(191, 211, 238, 0.85);
+  border: 1px solid rgba(20, 32, 107, 0.15);
+  transform: rotate(-3deg);
+  z-index: 1;
+}
+
+.field {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin: 0;
+  padding: 0.4rem 0 0.2rem;
+  border-bottom: 1.5px solid var(--ruling);
+}
+.field span {
+  flex: 0 0 4.5rem;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+.field b {
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--ink);
+}
+.field.name { padding-top: 0.75rem; }
+.field.name b {
+  font-weight: 800;
+  font-size: clamp(2rem, 7vw, 3.25rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.intro {
+  max-width: 40rem;
+  margin: 2.5rem 0 0;
+  font-size: 1.25rem;
+  line-height: 1.6;
+}
+
+/* Pages of the book: section titles sit in the margin */
+.sheet { position: relative; }
+.sheet::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--margin-col) + var(--gap) / 2);
+  width: 2px;
+  background: var(--margin);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: var(--margin-col) 1fr;
+  column-gap: var(--gap);
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--ruling);
+}
+.row:first-child { border-top: 0; padding-top: 0; }
+
+.row h2 {
+  position: sticky;
+  top: 1.5rem;
+  align-self: start;
+  margin: 0;
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 800;
+  font-size: 1.6rem;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.body { max-width: 42rem; }
+.body > :first-child { margin-top: 0; }
+.body p { margin: 0 0 1rem; }
+
+article { margin-bottom: 2.5rem; }
+article:last-child { margin-bottom: 0; }
+
+h3 {
+  margin: 0;
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.35rem;
+  line-height: 1.3;
+}
+.kind {
+  margin: 0.1rem 0 0.75rem !important;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+.built { font-size: 0.95rem; color: var(--muted); }
+
+.plain {
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+  border-left: 3px solid var(--ruling);
+}
+.plain li { padding: 0.1rem 0 0.1rem 1rem; }
+
+dl { margin: 0; }
+dt {
+  margin-top: 1rem;
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 700;
+}
+dt:first-child { margin-top: 0; }
+dd { margin: 0; }
+
+.foot {
+  margin-top: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--ruling);
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.foot p { margin: 0; }
+
+/* Buttons under the intro */
+.actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.75rem 0 0; }
+.btn {
+  display: inline-block;
+  padding: 0.7rem 1.25rem;
+  background: var(--ink);
+  color: #fff;
+  border: 2px solid var(--ink);
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 700;
+  text-decoration: none;
+}
+.btn:hover { background: #0c1550; border-color: #0c1550; }
+.btn.alt { background: transparent; color: var(--ink); }
+.btn.alt:hover { background: #e8f0fb; }
+.btn:focus-visible { outline-offset: 3px; }
+
+/* Stacks and skills as small labelled lists */
+.stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0 0 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+.stack li {
+  padding: 0.15rem 0.6rem;
+  border: 1.5px solid var(--ruling);
+  background: #fff;
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.skillgrid { display: grid; gap: 1.5rem; }
+.skillgrid h3 { font-size: 1.05rem; margin-bottom: 0.5rem; }
+.skillgrid .stack { margin: 0; }
+.next { margin-top: 1.5rem !important; }
+
+/* Contact links: whole row is the tap target */
+.links { margin: 0; padding: 0; list-style: none; }
+.links li { border-bottom: 1.5px solid var(--ruling); }
+.links li:first-child { border-top: 1.5px solid var(--ruling); }
+.links a {
+  display: flex;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  text-decoration: none;
+  word-break: break-word;
+}
+.links a:hover { background: #eef4fc; }
+.links span {
+  flex: 0 0 6rem;
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 700;
+}
+
+/* Small screens: the margin line moves to the left edge */
+@media (max-width: 44rem) {
+  .sheet { padding-left: 1.1rem; }
+  .sheet::before { left: 0; }
+  .row { grid-template-columns: 1fr; }
+  .row h2 { position: static; margin-bottom: 1rem; }
+  .label { flex-direction: column; transform: none; padding: 1rem; gap: 1.25rem; }
+  .photo { order: 0; flex-basis: auto; width: 8rem; }
+  .field { gap: 0.75rem; }
+  .field span { flex-basis: 3.75rem; }
+  .intro { font-size: 1.125rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* Print or save as PDF: a clean one-column CV */
+@media print {
+  .top, .actions, .skip { display: none; }
+  .label { transform: none; }
+  .photo img { transform: none; }
+  .sheet::before { display: none; }
+  .row { break-inside: avoid; }
+  .row h2 { position: static; }
+  a { text-decoration: none; }
+}

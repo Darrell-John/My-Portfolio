@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Darrell John – Software developer and computer science student</title>
+  <meta name="description" content="Portfolio of Darrell John, a second-year computer science student at Midlands State University who builds web systems for schools and clients in Zimbabwe.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2314206b'/%3E%3Ctext x='16' y='22' font-size='16' font-family='Arial' font-weight='700' text-anchor='middle' fill='white'%3EDJ%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#work">Skip to my work</a>
+
+  <div class="page">
+    <nav class="top" aria-label="Main">
+      <a href="#work">Work</a>
+      <a href="#study">Study</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <header class="cover">
+      <div class="label">
+        <figure class="photo">
+          <img src="photo.jpg" alt="Portrait of Darrell John" width="320" height="400">
+        </figure>
+        <div class="fields">
+          <p class="field name"><span>Name</span><b>Darrell John</b></p>
+          <p class="field"><span>Subject</span><b>Software development</b></p>
+          <p class="field"><span>School</span><b>Midlands State University</b></p>
+          <p class="field"><span>Class</span><b>Computer Science, year 2</b></p>
+          <p class="field"><span>Town</span><b>Gweru, Zimbabwe</b></p>
+        </div>
+      </div>
+      <p class="intro">I build web software for schools and for paying clients, and I study computer science alongside it. Most of what I make handles real school and financial records, so I spend a lot of time on validation, access control and error messages that explain themselves.</p>
+      <p class="actions">
+        <a class="btn" href="#work">See my work</a>
+        <a class="btn alt" href="#contact">Get in touch</a>
+      </p>
+    </header>
+
+    <main class="sheet">
+
+      <section class="row" id="work" aria-labelledby="h-work">
+        <h2 id="h-work">Work</h2>
+        <div class="body">
+          <article>
+            <h3>ZimClass</h3>
+            <p class="kind">Solo project, multi-tenant school platform</p>
+            <p>A school management system for Zimbabwean schools, where each school’s data stays separate from every other school’s. It covers fees, attendance, grading and report cards. Features I built include phone-number login, role-based access, CSV import with two-pass validation, audit logs, GPS-verified staff clock-in and PDF report cards. An AI-assisted calendar reader proposes term dates, but a person must review them before anything is saved.</p>
+            <ul class="stack" aria-label="Built with"><li>React</li><li>Vite</li><li>Supabase</li><li>Cloudflare Pages</li></ul>
+            <p class="built"><a href="https://github.com/Darrell-John/ZimClass">Read the source on GitHub</a></p>
+          </article>
+
+          <article>
+            <h3>EduSync</h3>
+            <p class="kind">The first version of ZimClass</p>
+            <p>My first full system, written in plain HTML, CSS and JavaScript on top of a Supabase backend. It handled parents with several children, proof-of-payment uploads with approve and reject actions, and fee reminders over WhatsApp. I rebuilt it in React once the number of pages and roles made the plain version hard to maintain.</p>
+            <ul class="stack" aria-label="Built with"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>Supabase</li></ul>
+          </article>
+
+          <article>
+            <h3>Portfolio management system</h3>
+            <p class="kind">Client project, primary developer</p>
+            <p>A system for an FX portfolio management business in Zimbabwe. So far it has client onboarding with electronic signatures, broker account linking and a fee calculation engine. The next piece is a cash-flow table so that deposits and withdrawals made part-way through a period are charged correctly.</p>
+            <ul class="stack" aria-label="Built with"><li>React</li><li>TypeScript</li><li>Tailwind CSS</li><li>Supabase</li></ul>
+          </article>
+
+          <article>
+            <h3>Music analysis platform</h3>
+            <p class="kind">In planning</p>
+            <p>A web app where a guitarist or keyboardist uploads a recording and gets back the key, chord progression and tablature. I have written a five-phase build plan, and the first phase tests transcription accuracy on twenty tracks before any interface is built.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="row" id="study" aria-labelledby="h-study">
+        <h2 id="h-study">Study</h2>
+        <div class="body">
+          <p>Midlands State University, Faculty of Science and Technology. I am in the second year of Computer Science.</p>
+          <ul class="plain">
+            <li>HCSCI137 Software Engineering</li>
+            <li>HCSE135 Database Systems</li>
+            <li>HCSCI135 Computer Architecture</li>
+            <li>HMAT109 Discrete Mathematics</li>
+            <li>HSTA132 Applied Statistics</li>
+            <li>HTENG133 Physics for Engineers</li>
+          </ul>
+          <p>In Python I have implemented linked lists, stacks, queues, trees, binary search trees and heaps.</p>
+        </div>
+      </section>
+
+      <section class="row" id="skills" aria-labelledby="h-skills">
+        <h2 id="h-skills">Skills</h2>
+        <div class="body">
+          <div class="skillgrid">
+            <div><h3>Front end</h3><ul class="stack" aria-label="Built with"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>TypeScript</li><li>React</li><li>Vite</li><li>Tailwind CSS</li></ul></div>
+            <div><h3>Back end and data</h3><ul class="stack" aria-label="Built with"><li>Supabase</li><li>Postgres</li><li>Row-level security</li><li>Auth</li><li>Edge functions</li><li>Python</li></ul></div>
+            <div><h3>Tools and hosting</h3><ul class="stack" aria-label="Built with"><li>Git</li><li>GitHub</li><li>Cloudflare Pages</li></ul></div>
+          </div>
+          <p class="next">Next, I am working toward CompTIA Security+ and AWS Cloud Practitioner, with DevSecOps as the direction I want to take.</p>
+        </div>
+      </section>
+
+      <section class="row" id="contact" aria-labelledby="h-contact">
+        <h2 id="h-contact">Contact</h2>
+        <div class="body">
+          <p>I am open to freelance projects and to feedback on any of the work above. WhatsApp is the fastest way to reach me.</p>
+          <ul class="links">
+            <li><a href="mailto:your.email@example.com"><span>Email</span>johndarrellkeys@gmail.com</a></li>
+            <li><a href="https://wa.me/263771234567" target="_blank" rel="noopener noreferrer"><span>WhatsApp</span>+263 71 786 786</a></li>
+            <li><a href="https://www.linkedin.com/in/your-username" target="_blank" rel="noopener noreferrer"><span>LinkedIn</span>linkedin.com/in/Darrell John</a></li>
+            <li><a href="https://github.com/Darrell-John" target="_blank" rel="noopener noreferrer"><span>GitHub</span>github.com/Darrell-John</a></li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="foot">
+      <p>© 2026 Darrell John, Gweru, Zimbabwe</p>
+    </footer>
+  </div>
+</body>
+</html>
