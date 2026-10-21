@@ -1,308 +1,864 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light dark">
-  <title>Darrell John – Software developer and computer science student</title>
-  <meta name="description" content="Portfolio of Darrell John, a second-year computer science student at Midlands State University who builds web systems for schools and clients in Zimbabwe.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2314206b'/%3E%3Ctext x='16' y='22' font-size='16' font-family='Arial' font-weight='700' text-anchor='middle' fill='white'%3EDJ%3C/text%3E%3C/svg%3E">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
-  <script>
-    /* Set the theme before the page paints, so it does not flash */
-    (function () {
-      var t = null;
-      try { t = localStorage.getItem("theme"); } catch (e) {}
-      if (t !== "light" && t !== "dark") {
-        t = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-      }
-      document.documentElement.setAttribute("data-theme", t);
-    })();
-  </script>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <a class="skip" href="#work">Skip to my work</a>
+/* Palette taken from a school exercise book: white page, blue ruling,
+   red margin line, ballpoint-blue ink. */
+:root {
+  --paper: #fbfcfe;
+  --ruling: #bfd3ee;
+  --margin: #cf4037;
+  --ink: #14206b;
+  --text: #1d2330;
+  --muted: #556075;
+  --surface: #fff;
+  --on-ink: #fff;
+  --ink-hover: #0c1550;
+  --wash: #e8f0fb;
+  --shadow: #14206b;
+  --live: #1f9d55;
+  --building: #c78a00;
+  --lift: cubic-bezier(0.22, 0.8, 0.25, 1);
+  --glow: rgba(20, 32, 107, 0.18);
+  --squiggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 14' preserveAspectRatio='none'%3E%3Cpath d='M3 8C25 2 45 14 70 7S115 2 140 8 190 13 215 7 265 3 297 8' fill='none' stroke='black' stroke-width='3.5' stroke-linecap='round'/%3E%3C/svg%3E");
+}
 
-  <div class="page">
-    <nav class="top" aria-label="Main">
-      <a href="#work">Work</a>
-      <a href="#study">Study</a>
-      <a href="#skills">Skills</a>
-      <a class="nav-cta" href="#hire">Hire me</a>
-      <a href="#contact">Contact</a>
-      <button class="theme-toggle" type="button" aria-label="Switch to dark mode">
-        <svg class="moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-        <svg class="sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2m-7.07-2.93 1.41-1.41m11.32-11.32 1.41-1.41M2 12h2m16 0h2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41"/></svg>
-      </button>
-    </nav>
+*, *::before, *::after { box-sizing: border-box; }
 
-    <header class="cover">
-      <div class="hello-wrap">
-        <div class="hello-text">
-          <p class="greet">Hello, I’m</p>
-          <h1 class="hello" aria-label="Darrell John"><span aria-hidden="true"><span class="w"><span class="ch" style="--i:0">D</span><span class="ch" style="--i:1">a</span><span class="ch" style="--i:2">r</span><span class="ch" style="--i:3">r</span><span class="ch" style="--i:4">e</span><span class="ch" style="--i:5">l</span><span class="ch" style="--i:6">l</span></span> <span class="w"><span class="ch" style="--i:8">J</span><span class="ch" style="--i:9">o</span><span class="ch" style="--i:10">h</span><span class="ch" style="--i:11">n</span></span></span><svg class="scribble" viewBox="0 0 300 14" aria-hidden="true" focusable="false"><path d="M3 9 C 50 3, 95 12, 150 7 S 250 4, 297 8" pathLength="1"/></svg></h1>
-          <p class="role">I build <span class="sr-only">web software for schools and clients.</span><span class="typed" id="typed" aria-hidden="true">school management systems</span><span class="caret" aria-hidden="true"></span></p>
-        </div>
-        <figure class="photo">
-          <img src="photo.jpg" alt="Portrait of Darrell John" width="320" height="400">
-        </figure>
-      </div>
-      <p class="intro">I build web software for schools and for paying clients, and I study computer science alongside it. Most of what I make handles real school and financial records, so I spend a lot of time on validation, access control and error messages that explain themselves.</p>
-      <p class="where">Second-year Computer Science student at Midlands State University, Gweru, Zimbabwe.</p>
-      <p class="actions">
-        <a class="btn" href="#work">See my work</a>
-        <a class="btn alt" href="#hire">Work with me</a>
-        <a class="btn alt btn-download" href="cv/Darrell-John-CV.pdf" download="Darrell-John-CV.pdf"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>Download CV</a>
-      </p>
-    </header>
+html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
 
-    <main class="sheet">
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--text);
+  font: 1.0625rem/1.7 Literata, Georgia, "Times New Roman", serif;
+}
 
-      <section class="row" id="work" aria-labelledby="h-work">
-        <h2 id="h-work">Work</h2>
-        <div class="body">
-          <article>
-            <h3><span class="t">ZimClass</span><span class="status live">Live</span></h3>
-            <p class="kind">Solo project, multi-tenant school platform</p>
-            <figure class="shot">
-              <a href="https://zimclass.johndarrellkeys.workers.dev" target="_blank" rel="noopener noreferrer"><img src="images/zimclass.webp" alt="ZimClass admin dashboard showing fees collected, outstanding fees, student and teacher totals, and a weekly fees chart" width="1366" height="635" loading="lazy"></a>
-            </figure>
-            <p>A school management system for Zimbabwean schools, where each school’s data stays separate from every other school’s. It covers fees, attendance, grading and report cards. Features I built include phone-number login, role-based access, CSV import with two-pass validation, audit logs, GPS-verified staff clock-in and PDF report cards. An AI-assisted calendar reader proposes term dates, but a person must review them before anything is saved.</p>
-            <ul class="stack" aria-label="Built with"><li>React</li><li>Vite</li><li>Supabase</li><li>Cloudflare Pages</li></ul>
-            <p class="built"><a href="https://zimclass.johndarrellkeys.workers.dev" target="_blank" rel="noopener noreferrer">Open the live site</a> · <a href="https://github.com/Darrell-John/ZimClass" target="_blank" rel="noopener noreferrer">Read the source on GitHub</a></p>
-          </article>
+.page {
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: 0 1.25rem 3rem;
+}
 
-          <article>
-            <h3><span class="t">Portfolio management system</span><span class="status">In development</span></h3>
-            <p class="kind">Client project, primary developer</p>
-            <figure class="shot">
-              <img src="images/fx-pms.webp" alt="Client profile page in the portfolio management system, with the risk questionnaire and signed management agreement both marked done" width="1343" height="641" loading="lazy">
-            </figure>
-            <p>A system for an FX portfolio management business in Zimbabwe. So far it has client onboarding with electronic signatures, broker account linking and a fee calculation engine. The next piece is a cash-flow table so that deposits and withdrawals made part-way through a period are charged correctly.</p>
-            <ul class="stack" aria-label="Built with"><li>React</li><li>TypeScript</li><li>Tailwind CSS</li><li>Supabase</li></ul>
-            <!-- Check this repository name matches your GitHub -->
-            <p class="built"><a href="https://github.com/Darrell-John/FX-PMS" target="_blank" rel="noopener noreferrer">Read the source on GitHub</a></p>
-          </article>
+a { color: var(--ink); text-underline-offset: 0.2em; }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+}
 
-          <article>
-            <h3><span class="t">ProfExpress</span></h3>
-            <p class="kind">Delivery ordering app</p>
-            <figure class="shot">
-              <img src="images/profexpress.webp" alt="ProfExpress order form with pickup and drop-off addresses, a choice of six vehicle types, and a calculated price for a 1.16 km trip" width="1019" height="593" loading="lazy">
-            </figure>
-            <p>A delivery app where a customer enters pickup and drop-off addresses, chooses a vehicle from bicycle to van, and gets a price based on the distance before paying. A heavy or large item can be locked to one vehicle type, and the owner has a separate dashboard for incoming orders.</p>
-            <!-- Check this repository name matches your GitHub -->
-            <p class="built"><a href="https://github.com/Darrell-John/ProfExpress" target="_blank" rel="noopener noreferrer">Read the source on GitHub</a></p>
-          </article>
+.skip {
+  position: absolute;
+  left: -999px;
+  top: 0.5rem;
+  background: var(--ink);
+  color: var(--on-ink);
+  padding: 0.5rem 0.75rem;
+}
+.skip:focus { left: 0.5rem; z-index: 10; }
 
-          <article>
-            <h3><span class="t">EduSync</span></h3>
-            <p class="kind">The first version of ZimClass</p>
-            <p>My first full system, written in plain HTML, CSS and JavaScript on top of a Supabase backend. It handled parents with several children, proof-of-payment uploads with approve and reject actions, and fee reminders over WhatsApp. I rebuilt it in React once the number of pages and roles made the plain version hard to maintain.</p>
-            <ul class="stack" aria-label="Built with"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>Supabase</li></ul>
-          </article>
+/* Navigation: stays at the top while you scroll, the current section gets a red squiggle */
+.top {
+  position: sticky;
+  top: 0;
+  z-index: 15;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1.9rem;
+  padding: 1rem 0 0.9rem;
+  background: var(--paper);
+  border-bottom: 1px solid transparent;
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  transition: border-color 0.25s ease;
+}
+.top.scrolled { border-bottom-color: var(--ruling); }
+.top a { position: relative; padding: 0.3rem 0; text-decoration: none; }
+.top a:not(.nav-cta)::after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  bottom: -0.3rem;
+  height: 0.5rem;
+  background: var(--margin);
+  -webkit-mask: var(--squiggle) center / 100% 100% no-repeat;
+  mask: var(--squiggle) center / 100% 100% no-repeat;
+  clip-path: inset(-20% 100% -20% 0);
+}
+.top a:not(.nav-cta):hover::after,
+.top a:not(.nav-cta):focus-visible::after,
+.top a[aria-current="true"]::after { clip-path: inset(-20% -2% -20% 0); }
 
-          <article>
-            <h3><span class="t">Music analysis platform</span></h3>
-            <p class="kind">In planning</p>
-            <p>A web app where a guitarist or keyboardist uploads a recording and gets back the key, chord progression and tablature. I have written a five-phase build plan, and the first phase tests transcription accuracy on twenty tracks before any interface is built.</p>
-          </article>
-        </div>
-      </section>
+/* "Hire me" stands out as the one action in the menu */
+.top .nav-cta {
+  padding: 0.3rem 0.95rem;
+  border: 2px solid var(--ink);
+  background: var(--ink);
+  color: var(--on-ink);
+}
+.top .nav-cta:hover,
+.top .nav-cta[aria-current="true"] { background: var(--ink-hover); border-color: var(--ink-hover); }
+@media (prefers-reduced-motion: no-preference) {
+  .top a:not(.nav-cta)::after { transition: clip-path 0.4s var(--lift); }
+  .top .nav-cta { transition: transform 0.2s var(--lift), background 0.2s ease; }
+  .top .nav-cta:hover { transform: translateY(-2px); }
+}
 
-      <section class="row" id="study" aria-labelledby="h-study">
-        <h2 id="h-study">Study</h2>
-        <div class="body">
-          <p>Midlands State University, Faculty of Science and Technology. I am in the second year of Computer Science.</p>
-          <ul class="plain">
-            <li>HCSCI137 Software Engineering</li>
-            <li>HCSE135 Database Systems</li>
-            <li>HCSCI135 Computer Architecture</li>
-            <li>HMAT109 Discrete Mathematics</li>
-            <li>HSTA132 Applied Statistics</li>
-            <li>HTENG133 Physics for Engineers</li>
-          </ul>
-          <p>In Python I have implemented linked lists, stacks, queues, trees, binary search trees and heaps.</p>
-        </div>
-      </section>
+/* Theme toggle, at the right end of the navigation */
+.theme-toggle {
+  margin-left: auto;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1.5px solid var(--ruling);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+}
+.theme-toggle:hover { border-color: var(--ink); }
+.theme-toggle:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.theme-toggle svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.theme-toggle .sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .sun { display: block; }
+:root[data-theme="dark"] .theme-toggle .moon { display: none; }
 
-      <section class="row" id="skills" aria-labelledby="h-skills">
-        <h2 id="h-skills">Skills</h2>
-        <div class="body">
-          <div class="skillgrid">
-            <div><h3>Front end</h3><ul class="stack" aria-label="Built with"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>TypeScript</li><li>React</li><li>Vite</li><li>Tailwind CSS</li></ul></div>
-            <div><h3>Back end and data</h3><ul class="stack" aria-label="Built with"><li>Supabase</li><li>Postgres</li><li>Row-level security</li><li>Auth</li><li>Edge functions</li><li>Python</li></ul></div>
-            <div><h3>Tools and hosting</h3><ul class="stack" aria-label="Built with"><li>Git</li><li>GitHub</li><li>Cloudflare Pages</li></ul></div>
-          </div>
-          <p class="next">Next, I am working toward CompTIA Security+ and AWS Cloud Practitioner, with DevSecOps as the direction I want to take.</p>
-        </div>
-      </section>
+/* Cover: animated introduction */
+.cover { position: relative; padding: 3rem 0 3.5rem; }
+/* The red margin line runs down the hero and stops where the Work section begins */
+.cover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -0.8rem;
+  width: 2px;
+  background: var(--margin);
+}
 
-      <section class="row" id="hire" aria-labelledby="h-hire">
-        <h2 id="h-hire">Hire me</h2>
-        <div class="body">
-          <p>Do you run a school or a business that needs software, or have an idea that needs building? Tell me a little about it and I will get back to you.</p>
-          <form class="hire" id="hire-form">
-            <div class="f">
-              <label for="h-name">Your name</label>
-              <input id="h-name" name="name" type="text" autocomplete="name" required>
-            </div>
-            <div class="f">
-              <label for="h-contact">Email or phone number</label>
-              <input id="h-contact" name="contact" type="text" autocomplete="email" required>
-            </div>
-            <div class="f">
-              <label for="h-type">What do you need?</label>
-              <select id="h-type" name="type" required>
-                <option value="" selected disabled>Choose one</option>
-                <option>A school management system</option>
-                <option>A website for my business or organisation</option>
-                <option>A custom web app or dashboard</option>
-                <option>A fix or upgrade to an existing system</option>
-                <option>Something else</option>
-              </select>
-            </div>
-            <div class="f">
-              <label for="h-time">When do you need it? <span class="opt">(optional)</span></label>
-              <select id="h-time" name="timeline">
-                <option>Not sure yet</option>
-                <option>As soon as possible</option>
-                <option>Within a month</option>
-                <option>In the next few months</option>
-              </select>
-            </div>
-            <div class="f wide">
-              <label for="h-msg">Tell me about the project</label>
-              <textarea id="h-msg" name="message" rows="5" required></textarea>
-            </div>
-            <div class="send">
-              <button class="btn" type="submit" data-via="whatsapp">Send on WhatsApp</button>
-              <button class="btn alt" type="submit" data-via="email">Send by email</button>
-            </div>
-            <p class="note">This site does not store anything you type. Each button opens WhatsApp or your email app with your message ready to send.</p>
-            <p class="sent" id="hire-sent" role="status"></p>
-          </form>
-        </div>
-      </section>
+/* Passport-style photo, taped to the page */
+.photo {
+  position: relative;
+  flex: 0 0 10rem;
+  margin: 0.25rem 0 0;
+  order: 2;
+}
+.photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  background: var(--ruling);
+  border: 1px solid var(--ink);
+}
+.photo::before {
+  content: "";
+  position: absolute;
+  top: -0.7rem;
+  left: 50%;
+  width: 4rem;
+  height: 1.3rem;
+  margin-left: -2rem;
+  background: rgba(191, 211, 238, 0.85);
+  border: 1px solid rgba(20, 32, 107, 0.15);
+  z-index: 1;
+}
 
-      <section class="row" id="contact" aria-labelledby="h-contact">
-        <h2 id="h-contact">Contact</h2>
-        <div class="body">
-          <p>I am open to freelance projects and to feedback on any of the work above. WhatsApp is the fastest way to reach me.</p>
-          <p class="reach">Email <a href="mailto:johndarrellkeys@gmail.com">johndarrellkeys@gmail.com</a><br>WhatsApp <a href="https://wa.me/263717868620?text=Hello%20Darrell%2C%20I%20found%20your%20portfolio." target="_blank" rel="noopener noreferrer">+263 71 786 8620</a></p>
-          <p>My LinkedIn and GitHub are in the footer.</p>
-        </div>
-      </section>
 
-    </main>
+.hello-wrap {
+  display: grid;
+  grid-template-columns: 1fr 11rem;
+  gap: 2rem;
+  align-items: center;
+  max-width: 48rem;
+}
+.greet {
+  margin: 0 0 0.35rem;
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--muted);
+  animation: fade 0.6s ease 0.1s both;
+}
+.hello {
+  width: fit-content;
+  margin: 0;
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.75rem, 10vw, 5.5rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+.hello .w { display: inline-block; white-space: nowrap; margin-right: 0.22em; }
+.hello .w:last-of-type { margin-right: 0; }
+.hello .ch {
+  display: inline-block;
+  animation: rise 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(var(--i) * 55ms + 250ms);
+}
+.scribble { display: block; width: 100%; height: auto; margin: 0.35rem 0 0; overflow: visible; }
+.scribble path {
+  fill: none;
+  stroke: var(--margin);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 0.8s ease 1.3s forwards;
+}
+.role {
+  margin: 1.1rem 0 0;
+  min-height: 1.5em;
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 500;
+  font-size: clamp(1.15rem, 3vw, 1.5rem);
+  animation: fade 0.6s ease 1.5s both;
+}
+.typed { color: var(--ink); font-weight: 700; }
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  margin-left: 3px;
+  background: var(--margin);
+  vertical-align: -0.15em;
+  animation: blink 1s steps(1) infinite;
+}
+.photo { animation: fade 0.8s ease 0.9s both; }
+.intro, .where, .actions { animation: fade 0.7s ease 1.7s both; }
+.where { margin: 0.75rem 0 0; font-style: italic; font-size: 0.95rem; color: var(--muted); }
 
-    <footer class="foot">
-      <div class="social-panel">
-        <p class="social-label">Find me online</p>
-        <!-- Replace darrell-john with the end of your own LinkedIn address -->
-    <ul class="social" aria-label="Contact and profiles">
-        <li><a class="s-wa" href="https://wa.me/263717868620?text=Hello%20Darrell%2C%20I%20found%20your%20portfolio." target="_blank" rel="noopener noreferrer" aria-label="WhatsApp (+263 71 786 8620)" data-label="WhatsApp" style="--c:#25d366;--rgb:37,211,102"><svg class="solid" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a></li>
-        <li><a class="s-li" href="https://www.linkedin.com/in/darrell-john" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" data-label="LinkedIn" style="--c:#3b8fe8;--rgb:59,143,232"><svg class="solid" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></li>
-        <li><a class="s-gh" href="https://github.com/Darrell-John" target="_blank" rel="noopener noreferrer" aria-label="GitHub" data-label="GitHub" style="--c:#f0f3fa;--rgb:240,243,250"><svg class="solid" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a></li>
-        <li><a class="s-mail" href="mailto:johndarrellkeys@gmail.com" aria-label="Email (johndarrellkeys@gmail.com)" data-label="Email" style="--c:#ff6b5e;--rgb:255,107,94"><svg class="line" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg></a></li>
-    </ul>
-      </div>
-      <p>© 2026 Darrell John, Gweru, Zimbabwe</p>
-    </footer>
-  </div>
-  <script>
-    (function () {
-      var root = document.documentElement;
-      var btn = document.querySelector(".theme-toggle");
-      function label() {
-        btn.setAttribute("aria-label", root.getAttribute("data-theme") === "dark" ? "Switch to light mode" : "Switch to dark mode");
-      }
-      label();
-      btn.addEventListener("click", function () {
-        var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-        root.setAttribute("data-theme", next);
-        try { localStorage.setItem("theme", next); } catch (e) {}
-        label();
-      });
-    })();
-  </script>
-  <script>
-    (function () {
-      /* Typing line in the intro */
-      var el = document.getElementById("typed");
-      if (!el || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
-      var words = ["school management systems", "dashboards for clients", "software that handles real records"];
-      var i = 0, pos = words[0].length, dir = -1;
-      function tick() {
-        pos += dir;
-        el.textContent = words[i].slice(0, pos);
-        var delay = dir < 0 ? 35 : 60;
-        if (dir < 0 && pos === 0) { i = (i + 1) % words.length; dir = 1; delay = 300; }
-        else if (dir > 0 && pos === words[i].length) { dir = -1; delay = 2200; }
-        setTimeout(tick, delay);
-      }
-      setTimeout(tick, 3200);
-    })();
+@keyframes rise { from { opacity: 0; transform: translateY(0.55em); } to { opacity: 1; transform: none; } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes blink { 50% { opacity: 0; } }
 
-    (function () {
-      /* Client enquiry form: opens WhatsApp or the email app with the message filled in */
-      var form = document.getElementById("hire-form");
-      if (!form) return;
-      var via = "whatsapp";
-      form.querySelectorAll("button[data-via]").forEach(function (b) {
-        b.addEventListener("click", function () { via = b.getAttribute("data-via"); });
-      });
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-        if (e.submitter && e.submitter.getAttribute("data-via")) via = e.submitter.getAttribute("data-via");
-        var d = new FormData(form);
-        var text = [
-          "Hello Darrell, I found your portfolio and I would like to talk about a project.",
-          "",
-          "Name: " + d.get("name"),
-          "How to reach me: " + d.get("contact"),
-          "I need: " + d.get("type"),
-          "Timeline: " + d.get("timeline"),
-          "",
-          d.get("message")
-        ].join("\n");
-        var note = document.getElementById("hire-sent");
-        if (via === "email") {
-          location.href = "mailto:johndarrellkeys@gmail.com?subject=" + encodeURIComponent("Project enquiry from " + d.get("name")) + "&body=" + encodeURIComponent(text);
-          note.textContent = "Opening your email app…";
-        } else {
-          window.open("https://wa.me/263717868620?text=" + encodeURIComponent(text), "_blank", "noopener");
-          note.textContent = "Opening WhatsApp…";
-        }
-      });
-    })();
-  </script>
-  <script>
-    (function () {
-      /* Menu: mark the section you are reading, and show a ruled line once the page has scrolled */
-      var nav = document.querySelector(".top");
-      if (!nav) return;
-      var links = {};
-      nav.querySelectorAll('a[href^="#"]').forEach(function (a) { links[a.getAttribute("href").slice(1)] = a; });
-      function setCurrent(id) {
-        Object.keys(links).forEach(function (k) {
-          if (k === id) links[k].setAttribute("aria-current", "true"); else links[k].removeAttribute("aria-current");
-        });
-      }
-      if ("IntersectionObserver" in window) {
-        var io = new IntersectionObserver(function (entries) {
-          entries.forEach(function (e) { if (e.isIntersecting) setCurrent(e.target.id); });
-        }, { rootMargin: "-35% 0px -60% 0px" });
-        Object.keys(links).forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
-      }
-      window.addEventListener("scroll", function () {
-        nav.classList.toggle("scrolled", window.scrollY > 8);
-        if (window.scrollY < 200) setCurrent("");
-      }, { passive: true });
-    })();
-  </script>
-</body>
-</html>
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.btn.btn-download { display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; }
+.btn.btn-download svg {
+  flex: 0 0 auto;
+  width: 1.1rem;
+  height: 1.1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Client enquiry form */
+.hire { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 1.25rem; margin-top: 1.25rem; }
+.hire .f { display: flex; flex-direction: column; gap: 0.35rem; min-width: 0; }
+.hire .wide, .hire .send, .hire .note, .hire .sent { grid-column: 1 / -1; }
+.hire label { font-family: Archivo, Arial, sans-serif; font-weight: 700; font-size: 0.95rem; }
+.hire .opt { font-weight: 500; color: var(--muted); }
+.hire input, .hire select, .hire textarea {
+  width: 100%;
+  padding: 0.65rem 0.8rem;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  accent-color: var(--ink);
+}
+.hire textarea { resize: vertical; min-height: 8rem; }
+.hire input, .hire select, .hire textarea {
+  transition: border-color 0.2s ease, box-shadow 0.25s ease;
+}
+.hire input:hover, .hire select:hover, .hire textarea:hover { box-shadow: 3px 3px 0 var(--ruling); }
+.hire input:focus, .hire select:focus, .hire textarea:focus {
+  box-shadow: 0 0 0 4px var(--glow), 3px 3px 0 var(--margin);
+}
+.hire input:focus-visible, .hire select:focus-visible, .hire textarea:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+}
+.hire input:user-invalid, .hire select:user-invalid, .hire textarea:user-invalid { border-color: var(--margin); }
+.hire .send { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.hire button { cursor: pointer; font-size: 1rem; }
+.hire .note { margin: 0; font-size: 0.9rem; color: var(--muted); }
+.hire .sent { margin: 0; min-height: 1.5em; font-weight: 600; }
+
+.intro {
+  max-width: 40rem;
+  margin: 2.5rem 0 0;
+  font-size: 1.25rem;
+  line-height: 1.6;
+}
+
+/* Pages of the book, from Work onward: no margin column, full-width flow */
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 1.25rem;
+  padding: 2.75rem 0;
+  border-top: 1px solid var(--ruling);
+}
+.row:first-child { border-top: 0; padding-top: 0; }
+
+.row h2 {
+  position: relative;
+  margin: 0;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--ruling);
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 800;
+  font-size: 1.9rem;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.body { max-width: 52rem; }
+.body > :first-child { margin-top: 0; }
+.body p { margin: 0 0 1rem; }
+
+article { margin-bottom: 2.5rem; }
+article:last-child { margin-bottom: 0; }
+
+h3 {
+  margin: 0;
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.35rem;
+  line-height: 1.3;
+}
+.kind {
+  margin: 0.1rem 0 0.75rem !important;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+.built { font-size: 0.95rem; color: var(--muted); }
+
+/* Project screenshots, pasted onto the page like a printout */
+.shot {
+  position: relative;
+  margin: 0 0 1rem;
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  background: var(--ruling);
+  box-shadow: 4px 4px 0 var(--shadow);
+}
+.shot img { display: block; width: 100%; height: auto; }
+.shot a { display: block; }
+
+/* Status badge next to a project title */
+.status {
+  display: inline-block;
+  margin-left: 0.6rem;
+  padding: 0.1rem 0.6rem 0.1rem 0.5rem;
+  border: 1.5px solid var(--ruling);
+  border-radius: 999px;
+  background: var(--surface);
+  font-weight: 500;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  vertical-align: middle;
+}
+.status::before {
+  content: "";
+  display: inline-block;
+  width: 0.55rem;
+  height: 0.55rem;
+  margin-right: 0.4rem;
+  border-radius: 50%;
+  background: var(--building);
+}
+.status.live::before { background: var(--live); }
+.status.live { border-color: color-mix(in srgb, var(--live) 45%, var(--ruling)); }
+
+.plain {
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+  border-left: 3px solid var(--ruling);
+}
+.plain li { position: relative; padding: 0.1rem 0 0.1rem 1rem; }
+
+dl { margin: 0; }
+dt {
+  margin-top: 1rem;
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 700;
+}
+dt:first-child { margin-top: 0; }
+dd { margin: 0; }
+
+.foot {
+  margin-top: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--ruling);
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.foot p { margin: 0; }
+
+/* Contact details as plain text */
+.reach { line-height: 1.9; }
+
+/* Footer: round icon buttons with a coloured glow, on a dark panel */
+.social-panel {
+  margin-bottom: 1.5rem;
+  padding: 1.5rem 1.75rem 2.6rem;
+  background: #0e1220;
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--shadow);
+}
+.social-label {
+  margin-bottom: 1.5rem !important;
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #e3e7f0;
+}
+.social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.social a {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: #181d2d;
+  box-shadow: 0 0 0 2px rgba(var(--rgb), 0.7), 0 0 18px 4px rgba(var(--rgb), 0.5);
+  text-decoration: none;
+}
+.social a:hover,
+.social a:focus-visible {
+  box-shadow: 0 0 0 2px rgb(var(--rgb)), 0 0 30px 9px rgba(var(--rgb), 0.7);
+}
+.social a:focus-visible { outline: 3px solid #fff; outline-offset: 5px; }
+.social svg { width: 1.5rem; height: 1.5rem; }
+.social svg.solid { fill: var(--c); }
+.social svg.line {
+  fill: none;
+  stroke: var(--c);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* Name tag that appears on hover or keyboard focus */
+.social a::after {
+  content: attr(data-label);
+  position: absolute;
+  top: calc(100% + 0.7rem);
+  left: 50%;
+  translate: -50% -4px;
+  padding: 0.2rem 0.6rem;
+  background: #fff;
+  color: #0e1220;
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+.social a:hover::after,
+.social a:focus-visible::after { opacity: 1; translate: -50% 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .social a { transition: transform 0.25s var(--lift), box-shadow 0.25s ease; }
+  .social a:hover { transform: translateY(-4px); }
+  .social a::after { transition: opacity 0.2s ease, translate 0.2s var(--lift); }
+}
+@media (max-width: 44rem) {
+  .social { gap: 1.25rem; }
+}
+
+/* Buttons under the intro */
+.actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.75rem 0 0; }
+.btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  padding: 0.7rem 1.25rem;
+  background: var(--ink);
+  color: var(--on-ink);
+  border: 2px solid var(--ink);
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 700;
+  text-decoration: none;
+}
+.btn:hover { background: var(--ink-hover); border-color: var(--ink-hover); }
+.btn.alt { background: transparent; color: var(--ink); }
+.btn.alt:hover { background: var(--wash); }
+.btn:focus-visible { outline-offset: 3px; }
+
+/* Stacks and skills as small labelled lists */
+.stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0 0 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+.stack li {
+  padding: 0.15rem 0.6rem;
+  border: 1.5px solid var(--ruling);
+  background: var(--surface);
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.skillgrid { display: grid; gap: 1.25rem; }
+.skillgrid > * {
+  position: relative;
+  padding: 1rem 1.1rem 1.1rem;
+  border: 1.5px solid var(--ruling);
+  background: var(--surface);
+}
+.skillgrid h3 { font-size: 1.05rem; margin-bottom: 0.5rem; }
+.skillgrid .stack { margin: 0; }
+.next { margin-top: 1.5rem !important; }
+
+/* Small screens: the margin line moves to the left edge */
+@media (max-width: 44rem) {
+  .cover::before { left: -0.6rem; }
+  .row h2 { font-size: 1.6rem; }
+  .skillgrid > * { padding: 0.9rem; }
+  .hello-wrap { grid-template-columns: 1fr; gap: 1.5rem; }
+  .photo { order: -1; width: 8rem; }
+  .role { min-height: 3em; }
+  .hire { grid-template-columns: 1fr; }
+  .top { position: static; gap: 0.4rem 1.4rem; }
+  .actions, .send { flex-direction: column; align-items: stretch; }
+  .actions .btn, .send .btn { text-align: center; justify-content: center; }
+  .intro { font-size: 1.125rem; }
+}
+
+/* Dark mode: set by the toggle button (which starts from the device setting) */
+@media screen {
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper: #12151f;
+    --surface: #1a1f2e;
+    --ruling: #2c3a57;
+    --margin: #e0584e;
+    --ink: #a9bcff;
+    --text: #e3e7f0;
+    --muted: #9aa4b8;
+    --on-ink: #0d1226;
+    --ink-hover: #c4d1ff;
+    --wash: #232c45;
+    --shadow: #2c3a57;
+    --live: #3ec47c;
+    --building: #e0a82e;
+    --glow: rgba(169, 188, 255, 0.28);
+  }
+  :root[data-theme="dark"] .photo::before { background: rgba(120, 150, 210, 0.55); }
+}
+
+/* A small lift on the screenshot that links to the live site */
+/* Margin doodles: a little pencil sketch at the end of each section heading */
+.row::after {
+  content: "";
+  position: absolute;
+  right: 0.5rem;
+  top: 2.4rem;
+  width: 3.25rem;
+  height: 3.25rem;
+  background: var(--margin);
+  -webkit-mask: var(--doodle) center / contain no-repeat;
+  mask: var(--doodle) center / contain no-repeat;
+  pointer-events: none;
+}
+#work    { --doodle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 3C25 17 31 23 45 24C31 25 25 31 24 45C23 31 17 25 3 24C17 23 23 17 24 3Z' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+#study   { --doodle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M8 30C2 12 30 2 40 14C48 26 20 44 12 30C6 20 24 14 30 22' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+#skills  { --doodle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M6 26L19 38L42 10' fill='none' stroke='black' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+#hire    { --doodle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M6 38C10 14 30 8 42 26M42 26L31 24M42 26L43 15' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+#contact { --doodle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 42C6 28 4 16 12 10C18 6 24 11 24 15C24 11 30 6 36 10C44 16 42 28 24 42Z' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+@media (max-width: 44rem) { .row::after { width: 2.5rem; height: 2.5rem; top: 2.6rem; right: 0; } }
+
+/* Headings: a red hand-drawn squiggle, drawn with a pen when you scroll to it */
+.row > h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.38rem;
+  width: 7.5rem;
+  height: 0.7rem;
+  background: var(--margin);
+  -webkit-mask: var(--squiggle) center / 100% 100% no-repeat;
+  mask: var(--squiggle) center / 100% 100% no-repeat;
+}
+article > h3 .t {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.45rem;
+}
+article > h3 .t::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0.55rem;
+  background: var(--margin);
+  -webkit-mask: var(--squiggle) center / 100% 100% no-repeat;
+  mask: var(--squiggle) center / 100% 100% no-repeat;
+}
+
+/* ---------- Motion (everything below is switched off for reduced-motion) ---------- */
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--live) 55%, transparent); }
+  70%  { box-shadow: 0 0 0 0.5rem transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+@keyframes blink-soft { 50% { opacity: 0.3; } }
+@keyframes nudge { 50% { transform: translateY(3px); } }
+
+@media (prefers-reduced-motion: no-preference) {
+
+  /* Pictures: sit square on the page and lift on hover */
+  .shot {
+    transition: transform 0.35s var(--lift), box-shadow 0.35s var(--lift);
+  }
+  .shot:hover,
+  .shot:focus-within {
+    transform: translateY(-5px);
+    box-shadow: 7px 11px 0 var(--shadow), 0 18px 30px -10px var(--glow);
+  }
+  .shot img { transition: scale 0.7s var(--lift); }
+  .shot:hover img { scale: 1.03; }
+  .shot::after {               /* light sweeping over the print on hover */
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, 0.35) 50%, transparent 62%);
+    transform: translateX(-120%);
+    pointer-events: none;
+  }
+  .shot:hover::after { transform: translateX(120%); transition: transform 0.9s ease; }
+
+  /* Status pills */
+  .status.live::before { animation: pulse 2s ease-out infinite; }
+  .status:not(.live)::before { animation: blink-soft 1.8s ease-in-out infinite; }
+
+  /* Boxes that respond: chips, skill cards, list items, tiles, buttons */
+  .stack li {
+    background-image: linear-gradient(var(--ink), var(--ink));
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    transition: background-size 0.3s var(--lift), color 0.3s ease, transform 0.25s var(--lift), border-color 0.2s ease;
+  }
+  .stack li:hover { background-size: 100% 100%; color: var(--on-ink); border-color: var(--ink); transform: translateY(-3px); }
+
+  .skillgrid > * {
+    transition: transform 0.35s var(--lift), box-shadow 0.35s var(--lift), border-color 0.25s ease;
+  }
+  .skillgrid > *::before {     /* red margin-pen bar that draws across the top */
+    content: "";
+    position: absolute;
+    top: -1.5px;
+    left: -1.5px;
+    right: -1.5px;
+    height: 3px;
+    background: var(--margin);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s var(--lift);
+  }
+  .skillgrid > *:hover,
+  .skillgrid > *:focus-within {
+    transform: translateY(-5px);
+    border-color: var(--ink);
+    box-shadow: 4px 9px 0 var(--shadow), 0 16px 28px -10px var(--glow);
+  }
+  .skillgrid > *:hover::before,
+  .skillgrid > *:focus-within::before { transform: scaleX(1); }
+
+  .plain li { transition: translate 0.25s var(--lift), color 0.2s ease; }
+  .plain li::before {          /* margin line grows beside the hovered course */
+    content: "";
+    position: absolute;
+    left: -3px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--margin);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.3s var(--lift);
+  }
+  .plain li:hover { translate: 0.4rem 0; color: var(--ink); }
+  .plain li:hover::before { transform: scaleY(1); }
+
+
+  .btn { transition: transform 0.2s var(--lift), background 0.2s ease, box-shadow 0.2s ease; }
+  .btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, 0.4) 50%, transparent 62%);
+    transform: translateX(-120%);
+    pointer-events: none;
+  }
+  .btn:hover { transform: translateY(-3px); box-shadow: 3px 5px 0 var(--shadow); }
+  .btn:hover::after { transform: translateX(120%); transition: transform 0.7s ease; }
+  .btn:active { transform: none; box-shadow: none; }
+  .btn-download:hover svg { animation: nudge 0.7s ease-in-out infinite; }
+}
+
+/* Scroll-driven motion (Chrome, Edge, Safari). Other browsers just show the content. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+
+    @keyframes reveal-up {
+      from { opacity: 0; transform: translateY(1.75rem) scale(0.97); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes slide-l {
+      from { opacity: 0; transform: translateX(-2.25rem); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes slide-r {
+      from { opacity: 0; transform: translateX(2.25rem); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes pop {
+      from { opacity: 0; transform: scale(0.4) translateY(0.6rem); }
+      60%  { opacity: 1; transform: scale(1.08); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes print-in {        /* the picture is wiped in like a print being laid down */
+      from { opacity: 0; clip-path: inset(0 100% 0 0); transform: translateY(2.5rem) scale(0.93); }
+      to   { opacity: 1; clip-path: inset(-1.5rem); transform: none; }
+    }
+    @keyframes bounce-in {       /* heading hops up and settles, like it was just written */
+      from { opacity: 0; transform: translateY(1.4rem); }
+      55%  { opacity: 1; transform: translateY(-0.3rem); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes scribble-draw {   /* the pen scribbles the line from left to right */
+      from { clip-path: inset(-20% 100% -20% 0); }
+      to   { clip-path: inset(-20% -2% -20% 0); }
+    }
+    @keyframes doodle {
+      from { transform: translateY(-0.75rem) scale(0.75); }
+      to   { transform: translateY(1.75rem) scale(1.1); }
+    }
+    @keyframes progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+    /* shared: start when the element peeks in, finish after a short scroll */
+    .row > h2,
+    .body > p, .body > .plain,
+    article > p, article > .kind,
+    .skillgrid > *, .stack li, .plain li,
+    .hire > *, .shot, article > h3 {
+      animation-timeline: view();
+      animation-fill-mode: backwards;
+      animation-timing-function: cubic-bezier(0.22, 0.8, 0.25, 1);
+    }
+
+    .body > p, .body > .plain, article > p, article > .kind {
+      animation-name: reveal-up;
+      animation-range: entry 0px entry 150px;
+    }
+    .row > h2 { animation-name: bounce-in; animation-range: entry 0px entry 170px; }
+
+    article > h3 { animation-name: bounce-in; animation-range: entry 0px entry 170px; }
+    article > h3 .t::after { animation: scribble-draw linear both; animation-timeline: view(); animation-range: entry 40px entry 250px; }
+
+    .shot {
+      animation-name: print-in;
+      animation-range: entry 0px entry 300px;
+    }
+
+    /* headings: the red squiggle draws itself */
+    .row > h2::after { animation: scribble-draw linear both; animation-timeline: view(); animation-range: entry 20px entry 220px; }
+
+    /* chips pop in one after another */
+    .stack li { animation-name: pop; animation-range: entry calc(var(--k, 0) * 30px) entry calc(120px + var(--k, 0) * 30px); }
+    .stack li:nth-child(2) { --k: 1; } .stack li:nth-child(3) { --k: 2; } .stack li:nth-child(4) { --k: 3; }
+    .stack li:nth-child(5) { --k: 4; } .stack li:nth-child(6) { --k: 5; } .stack li:nth-child(7) { --k: 6; }
+
+    /* skill cards rise in once and then stay put */
+    .skillgrid > * {
+      animation-name: reveal-up;
+      animation-range: entry 0px entry 170px;
+    }
+
+    /* course list slides in line by line */
+    .plain li { animation-name: slide-l; animation-range: entry calc(var(--k, 0) * 25px) entry calc(110px + var(--k, 0) * 25px); }
+    .plain li:nth-child(2) { --k: 1; } .plain li:nth-child(3) { --k: 2; } .plain li:nth-child(4) { --k: 3; }
+    .plain li:nth-child(5) { --k: 4; } .plain li:nth-child(6) { --k: 5; }
+
+
+    /* enquiry form fields build up in order */
+    .hire > * { animation-name: reveal-up; animation-range: entry calc(var(--k, 0) * 30px) entry calc(140px + var(--k, 0) * 30px); }
+    .hire > :nth-child(3), .hire > :nth-child(4) { --k: 1; }
+    .hire > :nth-child(5) { --k: 2; }
+    .hire > :nth-child(n+6) { --k: 3; }
+
+    /* margin doodles drift as their section scrolls past */
+    .row::after { animation: doodle linear both; animation-timeline: view(); animation-range: cover 0% cover 100%; }
+
+    /* thin red progress line across the top of the screen */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: 4px;
+      background: var(--margin);
+      transform-origin: left;
+      z-index: 20;
+      animation: progress linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .greet, .hello .ch, .role, .photo, .intro, .where, .actions, .caret { animation: none; }
+  .scribble path { animation: none; stroke-dashoffset: 0; }
+}
+
+/* Print or save as PDF: a clean one-column CV */
+@media print {
+  .shot { box-shadow: none; }
+  .row::after, body::before { display: none; }
+  .top, .actions, .skip, .theme-toggle, #hire, .scribble, .caret, .social-panel { display: none; }
+  .photo img { transform: none; }
+  .cover::before { display: none; }
+  .row { break-inside: avoid; }
+  .skillgrid > * { border-color: #999; }
+  a { text-decoration: none; }
+}
