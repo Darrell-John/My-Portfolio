@@ -377,6 +377,87 @@ dd { margin: 0; }
 }
 .foot p { margin: 0; }
 
+/* Contact details as plain text */
+.reach { line-height: 1.9; }
+
+/* Footer: round icon buttons with a coloured glow, on a dark panel */
+.social-panel {
+  margin-bottom: 1.5rem;
+  padding: 1.5rem 1.75rem 2.6rem;
+  background: #0e1220;
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--shadow);
+}
+.social-label {
+  margin-bottom: 1.5rem !important;
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #e3e7f0;
+}
+.social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.social a {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: #181d2d;
+  box-shadow: 0 0 0 2px rgba(var(--rgb), 0.7), 0 0 18px 4px rgba(var(--rgb), 0.5);
+  text-decoration: none;
+}
+.social a:hover,
+.social a:focus-visible {
+  box-shadow: 0 0 0 2px rgb(var(--rgb)), 0 0 30px 9px rgba(var(--rgb), 0.7);
+}
+.social a:focus-visible { outline: 3px solid #fff; outline-offset: 5px; }
+.social svg { width: 1.5rem; height: 1.5rem; }
+.social svg.solid { fill: var(--c); }
+.social svg.line {
+  fill: none;
+  stroke: var(--c);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* Name tag that appears on hover or keyboard focus */
+.social a::after {
+  content: attr(data-label);
+  position: absolute;
+  top: calc(100% + 0.7rem);
+  left: 50%;
+  translate: -50% -4px;
+  padding: 0.2rem 0.6rem;
+  background: #fff;
+  color: #0e1220;
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+.social a:hover::after,
+.social a:focus-visible::after { opacity: 1; translate: -50% 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .social a { transition: transform 0.25s var(--lift), box-shadow 0.25s ease; }
+  .social a:hover { transform: translateY(-4px); }
+  .social a::after { transition: opacity 0.2s ease, translate 0.2s var(--lift); }
+}
+@media (max-width: 44rem) {
+  .social { gap: 1.25rem; }
+}
+
 /* Buttons under the intro */
 .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.75rem 0 0; }
 .btn {
@@ -425,50 +506,6 @@ dd { margin: 0; }
 .skillgrid .stack { margin: 0; }
 .next { margin-top: 1.5rem !important; }
 
-/* Contact links: each one is a button */
-.links {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.links a {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  height: 100%;
-  padding: 0.85rem 1rem;
-  border: 2px solid var(--ink);
-  background: var(--surface);
-  text-decoration: none;
-  overflow-wrap: anywhere;
-}
-.links a:hover { background: var(--ink); color: var(--on-ink); }
-.links .t { min-width: 0; }
-.links strong {
-  display: block;
-  font-family: Archivo, Arial, sans-serif;
-  font-weight: 800;
-  font-size: 1.05rem;
-}
-.icon {
-  flex: 0 0 auto;
-  width: 1.75rem;
-  height: 1.75rem;
-  fill: var(--brand);
-}
-.icon-line {
-  fill: none;
-  stroke: var(--brand);
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.links a:hover .icon { fill: var(--on-ink); }
-.links a:hover .icon-line { fill: none; stroke: var(--on-ink); }
-
 /* Small screens: the margin line moves to the left edge */
 @media (max-width: 44rem) {
   .cover::before { left: -0.6rem; }
@@ -479,7 +516,6 @@ dd { margin: 0; }
   .role { min-height: 3em; }
   .hire { grid-template-columns: 1fr; }
   .intro { font-size: 1.125rem; }
-  .links { grid-template-columns: 1fr; }
 }
 
 /* Dark mode: set by the toggle button (which starts from the device setting) */
@@ -626,23 +662,6 @@ dd { margin: 0; }
   .plain li:hover { translate: 0.4rem 0; color: var(--ink); }
   .plain li:hover::before { transform: scaleY(1); }
 
-  .links a {
-    background-color: var(--surface);
-    background-image: linear-gradient(var(--ink), var(--ink));
-    background-repeat: no-repeat;
-    background-size: 0% 100%;
-    transition: background-size 0.4s var(--lift), color 0.3s ease, transform 0.25s var(--lift), box-shadow 0.25s var(--lift);
-  }
-  .links a:hover {
-    background-color: var(--surface);
-    background-image: linear-gradient(var(--ink), var(--ink));
-    background-size: 100% 100%;
-    color: var(--on-ink);
-    transform: translateY(-4px);
-    box-shadow: 4px 6px 0 var(--shadow);
-  }
-  .icon { transition: transform 0.3s var(--lift); }
-  .links a:hover .icon { transform: scale(1.2) rotate(-8deg); }
 
   .btn { transition: transform 0.2s var(--lift), background 0.2s ease, box-shadow 0.2s ease; }
   .btn::after {
@@ -707,7 +726,7 @@ dd { margin: 0; }
     .body > p, .body > .plain,
     article > p, article > .kind,
     .skillgrid > *, .stack li, .plain li,
-    .links li, .hire > *, .shot, article > h3 {
+    .hire > *, .shot, article > h3 {
       animation-timeline: view();
       animation-fill-mode: backwards;
       animation-timing-function: cubic-bezier(0.22, 0.8, 0.25, 1);
@@ -760,9 +779,6 @@ dd { margin: 0; }
     .plain li:nth-child(2) { --k: 1; } .plain li:nth-child(3) { --k: 2; } .plain li:nth-child(4) { --k: 3; }
     .plain li:nth-child(5) { --k: 4; } .plain li:nth-child(6) { --k: 5; }
 
-    /* contact tiles arrive from alternating sides */
-    .links li:nth-child(odd)  { animation-name: slide-l; animation-range: entry 0px entry 170px; }
-    .links li:nth-child(even) { animation-name: slide-r; animation-range: entry 0px entry 170px; }
 
     /* enquiry form fields build up in order */
     .hire > * { animation-name: reveal-up; animation-range: entry calc(var(--k, 0) * 30px) entry calc(140px + var(--k, 0) * 30px); }
@@ -798,7 +814,7 @@ dd { margin: 0; }
 @media print {
   .shot { box-shadow: none; }
   .row::after, body::before { display: none; }
-  .top, .actions, .skip, .theme-toggle, #hire, .scribble, .caret { display: none; }
+  .top, .actions, .skip, .theme-toggle, #hire, .scribble, .caret, .social-panel { display: none; }
   .photo img { transform: none; }
   .cover::before { display: none; }
   .row { break-inside: avoid; }
