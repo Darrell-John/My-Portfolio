@@ -31,6 +31,7 @@
       <a href="#work">Work</a>
       <a href="#study">Study</a>
       <a href="#skills">Skills</a>
+      <a href="#hire">Hire me</a>
       <a href="#contact">Contact</a>
       <button class="theme-toggle" type="button" aria-label="Switch to dark mode">
         <svg class="moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
@@ -39,23 +40,23 @@
     </nav>
 
     <header class="cover">
-      <div class="label">
+      <div class="hello-wrap">
+        <div class="hello-text">
+          <p class="greet">Hello, I’m</p>
+          <h1 class="hello" aria-label="Darrell John"><span aria-hidden="true"><span class="w"><span class="ch" style="--i:0">D</span><span class="ch" style="--i:1">a</span><span class="ch" style="--i:2">r</span><span class="ch" style="--i:3">r</span><span class="ch" style="--i:4">e</span><span class="ch" style="--i:5">l</span><span class="ch" style="--i:6">l</span></span> <span class="w"><span class="ch" style="--i:8">J</span><span class="ch" style="--i:9">o</span><span class="ch" style="--i:10">h</span><span class="ch" style="--i:11">n</span></span></span></h1>
+          <svg class="scribble" viewBox="0 0 300 14" aria-hidden="true" focusable="false"><path d="M3 9 C 50 3, 95 12, 150 7 S 250 4, 297 8" pathLength="1"/></svg>
+          <p class="role">I build <span class="sr-only">web software for schools and clients.</span><span class="typed" id="typed" aria-hidden="true">school management systems</span><span class="caret" aria-hidden="true"></span></p>
+        </div>
         <figure class="photo">
           <img src="photo.jpg" alt="Portrait of Darrell John" width="320" height="400">
         </figure>
-        <div class="fields">
-          <p class="field name"><span>Name</span><b>Darrell John</b></p>
-          <p class="field"><span>Subject</span><b>Web development</b></p>
-          <p class="field"><span>School</span><b>Midlands State University</b></p>
-          <p class="field"><span>Class</span><b>Computer Science, Year 2</b></p>
-          <p class="field"><span>Town</span><b>Gweru, Zimbabwe</b></p>
-        </div>
       </div>
       <p class="intro">I build web software for schools and for paying clients, and I study computer science alongside it. Most of what I make handles real school and financial records, so I spend a lot of time on validation, access control and error messages that explain themselves.</p>
+      <p class="where">Second-year Computer Science student at Midlands State University, Gweru, Zimbabwe.</p>
       <p class="actions">
         <a class="btn" href="#work">See my work</a>
-        <a class="btn alt" href="#contact">Get in touch</a>
-        <a class="btn alt" href="cv/Darrell-John-CV.pdf" download>Download CV</a>
+        <a class="btn alt" href="#hire">Work with me</a>
+        <a class="btn alt btn-download" href="cv/Darrell-John-CV.pdf" download="Darrell-John-CV.pdf"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>Download CV</a>
       </p>
     </header>
 
@@ -141,6 +142,53 @@
         </div>
       </section>
 
+      <section class="row" id="hire" aria-labelledby="h-hire">
+        <h2 id="h-hire">Hire me</h2>
+        <div class="body">
+          <p>Do you run a school or a business that needs software, or have an idea that needs building? Tell me a little about it and I will get back to you.</p>
+          <form class="hire" id="hire-form">
+            <div class="f">
+              <label for="h-name">Your name</label>
+              <input id="h-name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="f">
+              <label for="h-contact">Email or phone number</label>
+              <input id="h-contact" name="contact" type="text" autocomplete="email" required>
+            </div>
+            <div class="f">
+              <label for="h-type">What do you need?</label>
+              <select id="h-type" name="type" required>
+                <option value="" selected disabled>Choose one</option>
+                <option>A school management system</option>
+                <option>A website for my business or organisation</option>
+                <option>A custom web app or dashboard</option>
+                <option>A fix or upgrade to an existing system</option>
+                <option>Something else</option>
+              </select>
+            </div>
+            <div class="f">
+              <label for="h-time">When do you need it? <span class="opt">(optional)</span></label>
+              <select id="h-time" name="timeline">
+                <option>Not sure yet</option>
+                <option>As soon as possible</option>
+                <option>Within a month</option>
+                <option>In the next few months</option>
+              </select>
+            </div>
+            <div class="f wide">
+              <label for="h-msg">Tell me about the project</label>
+              <textarea id="h-msg" name="message" rows="5" required></textarea>
+            </div>
+            <div class="send">
+              <button class="btn" type="submit" data-via="whatsapp">Send on WhatsApp</button>
+              <button class="btn alt" type="submit" data-via="email">Send by email</button>
+            </div>
+            <p class="note">This site does not store anything you type. Each button opens WhatsApp or your email app with your message ready to send.</p>
+            <p class="sent" id="hire-sent" role="status"></p>
+          </form>
+        </div>
+      </section>
+
       <section class="row" id="contact" aria-labelledby="h-contact">
         <h2 id="h-contact">Contact</h2>
         <div class="body">
@@ -174,6 +222,57 @@
         root.setAttribute("data-theme", next);
         try { localStorage.setItem("theme", next); } catch (e) {}
         label();
+      });
+    })();
+  </script>
+  <script>
+    (function () {
+      /* Typing line in the intro */
+      var el = document.getElementById("typed");
+      if (!el || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
+      var words = ["school management systems", "dashboards for clients", "software that handles real records"];
+      var i = 0, pos = words[0].length, dir = -1;
+      function tick() {
+        pos += dir;
+        el.textContent = words[i].slice(0, pos);
+        var delay = dir < 0 ? 35 : 60;
+        if (dir < 0 && pos === 0) { i = (i + 1) % words.length; dir = 1; delay = 300; }
+        else if (dir > 0 && pos === words[i].length) { dir = -1; delay = 2200; }
+        setTimeout(tick, delay);
+      }
+      setTimeout(tick, 3200);
+    })();
+
+    (function () {
+      /* Client enquiry form: opens WhatsApp or the email app with the message filled in */
+      var form = document.getElementById("hire-form");
+      if (!form) return;
+      var via = "whatsapp";
+      form.querySelectorAll("button[data-via]").forEach(function (b) {
+        b.addEventListener("click", function () { via = b.getAttribute("data-via"); });
+      });
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if (e.submitter && e.submitter.getAttribute("data-via")) via = e.submitter.getAttribute("data-via");
+        var d = new FormData(form);
+        var text = [
+          "Hello Darrell, I found your portfolio and I would like to talk about a project.",
+          "",
+          "Name: " + d.get("name"),
+          "How to reach me: " + d.get("contact"),
+          "I need: " + d.get("type"),
+          "Timeline: " + d.get("timeline"),
+          "",
+          d.get("message")
+        ].join("\n");
+        var note = document.getElementById("hire-sent");
+        if (via === "email") {
+          location.href = "mailto:johndarrellkeys@gmail.com?subject=" + encodeURIComponent("Project enquiry from " + d.get("name")) + "&body=" + encodeURIComponent(text);
+          note.textContent = "Opening your email app…";
+        } else {
+          window.open("https://wa.me/263717868620?text=" + encodeURIComponent(text), "_blank", "noopener");
+          note.textContent = "Opening WhatsApp…";
+        }
       });
     })();
   </script>

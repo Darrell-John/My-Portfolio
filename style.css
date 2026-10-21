@@ -93,21 +93,8 @@ a:focus-visible {
 :root[data-theme="dark"] .theme-toggle .sun { display: block; }
 :root[data-theme="dark"] .theme-toggle .moon { display: none; }
 
-/* Cover: the label on the front of an exercise book */
+/* Cover: animated introduction */
 .cover { padding: 3rem 0 3.5rem; }
-
-.label {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.75rem;
-  max-width: 44rem;
-  background: var(--surface);
-  border: 2px solid var(--ink);
-  box-shadow: 4px 4px 0 var(--shadow);
-  padding: 1.5rem 1.75rem 1.75rem;
-  transform: rotate(-1deg);
-}
-.fields { flex: 1; min-width: 0; }
 
 /* Passport-style photo, taped to the label */
 .photo {
@@ -139,33 +126,124 @@ a:focus-visible {
   z-index: 1;
 }
 
-.field {
-  display: flex;
-  align-items: baseline;
-  gap: 1rem;
-  margin: 0;
-  padding: 0.4rem 0 0.2rem;
-  border-bottom: 1.5px solid var(--ruling);
+
+.hello-wrap {
+  display: grid;
+  grid-template-columns: 1fr 11rem;
+  gap: 2rem;
+  align-items: center;
+  max-width: 48rem;
 }
-.field span {
-  flex: 0 0 4.5rem;
+.greet {
+  margin: 0 0 0.35rem;
   font-style: italic;
-  font-size: 0.95rem;
-  color: var(--muted);
-}
-.field b {
-  font-family: Archivo, Arial, sans-serif;
-  font-weight: 700;
   font-size: 1.15rem;
+  color: var(--muted);
+  animation: fade 0.6s ease 0.1s both;
+}
+.hello {
+  margin: 0;
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.75rem, 10vw, 5.5rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
   color: var(--ink);
 }
-.field.name { padding-top: 0.75rem; }
-.field.name b {
-  font-weight: 800;
-  font-size: clamp(2rem, 7vw, 3.25rem);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+.hello .w { display: inline-block; white-space: nowrap; margin-right: 0.22em; }
+.hello .ch {
+  display: inline-block;
+  animation: rise 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(var(--i) * 55ms + 250ms);
 }
+.scribble { display: block; width: min(22rem, 85%); height: auto; margin: 0.4rem 0 1.25rem; overflow: visible; }
+.scribble path {
+  fill: none;
+  stroke: var(--margin);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 0.8s ease 1.3s forwards;
+}
+.role {
+  margin: 0;
+  min-height: 1.5em;
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 500;
+  font-size: clamp(1.15rem, 3vw, 1.5rem);
+  animation: fade 0.6s ease 1.5s both;
+}
+.typed { color: var(--ink); font-weight: 700; }
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  margin-left: 3px;
+  background: var(--margin);
+  vertical-align: -0.15em;
+  animation: blink 1s steps(1) infinite;
+}
+.photo { animation: fade 0.8s ease 0.9s both; }
+.intro, .where, .actions { animation: fade 0.7s ease 1.7s both; }
+.where { margin: 0.75rem 0 0; font-style: italic; font-size: 0.95rem; color: var(--muted); }
+
+@keyframes rise { from { opacity: 0; transform: translateY(0.55em); } to { opacity: 1; transform: none; } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes blink { 50% { opacity: 0; } }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.btn-download { display: inline-flex; align-items: center; gap: 0.5rem; }
+.btn-download svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Client enquiry form */
+.hire { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 1.25rem; margin-top: 1.25rem; }
+.hire .f { display: flex; flex-direction: column; gap: 0.35rem; min-width: 0; }
+.hire .wide, .hire .send, .hire .note, .hire .sent { grid-column: 1 / -1; }
+.hire label { font-family: Archivo, Arial, sans-serif; font-weight: 700; font-size: 0.95rem; }
+.hire .opt { font-weight: 500; color: var(--muted); }
+.hire input, .hire select, .hire textarea {
+  width: 100%;
+  padding: 0.65rem 0.8rem;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  accent-color: var(--ink);
+}
+.hire textarea { resize: vertical; min-height: 8rem; }
+.hire input:focus-visible, .hire select:focus-visible, .hire textarea:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+}
+.hire input:user-invalid, .hire select:user-invalid, .hire textarea:user-invalid { border-color: var(--margin); }
+.hire .send { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.hire button { cursor: pointer; font-size: 1rem; }
+.hire .note { margin: 0; font-size: 0.9rem; color: var(--muted); }
+.hire .sent { margin: 0; min-height: 1.5em; font-weight: 600; }
 
 .intro {
   max-width: 40rem;
@@ -380,10 +458,10 @@ dd { margin: 0; }
   .sheet::before { left: 0; }
   .row { grid-template-columns: 1fr; }
   .row h2 { position: static; margin-bottom: 1rem; }
-  .label { flex-direction: column; transform: none; padding: 1rem; gap: 1.25rem; }
-  .photo { order: 0; flex-basis: auto; width: 8rem; }
-  .field { gap: 0.75rem; }
-  .field span { flex-basis: 3.75rem; }
+  .hello-wrap { grid-template-columns: 1fr; gap: 1.5rem; }
+  .photo { order: -1; width: 8rem; }
+  .role { min-height: 3em; }
+  .hire { grid-template-columns: 1fr; }
   .intro { font-size: 1.125rem; }
   .links { grid-template-columns: 1fr; }
 }
@@ -417,13 +495,14 @@ dd { margin: 0; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .greet, .hello .ch, .role, .photo, .intro, .where, .actions, .caret { animation: none; }
+  .scribble path { animation: none; stroke-dashoffset: 0; }
 }
 
 /* Print or save as PDF: a clean one-column CV */
 @media print {
-  .label, .shot img { box-shadow: none; }
-  .top, .actions, .skip, .theme-toggle { display: none; }
-  .label { transform: none; }
+  .shot img { box-shadow: none; }
+  .top, .actions, .skip, .theme-toggle, #hire, .scribble, .caret { display: none; }
   .photo img { transform: none; }
   .sheet::before { display: none; }
   .row { break-inside: avoid; }
