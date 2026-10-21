@@ -258,22 +258,30 @@ dd { margin: 0; }
 .skillgrid .stack { margin: 0; }
 .next { margin-top: 1.5rem !important; }
 
-/* Contact links: whole row is the tap target */
-.links { margin: 0; padding: 0; list-style: none; }
-.links li { border-bottom: 1.5px solid var(--ruling); }
-.links li:first-child { border-top: 1.5px solid var(--ruling); }
-.links a {
-  display: flex;
-  gap: 1rem;
-  padding: 0.85rem 0;
-  text-decoration: none;
-  word-break: break-word;
+/* Contact links: each one is a button */
+.links {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
-.links a:hover { background: #eef4fc; }
+.links a {
+  display: block;
+  height: 100%;
+  padding: 0.85rem 1rem;
+  border: 2px solid var(--ink);
+  background: #fff;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.links a:hover { background: var(--ink); color: #fff; }
 .links span {
-  flex: 0 0 6rem;
+  display: block;
   font-family: Archivo, Arial, sans-serif;
-  font-weight: 700;
+  font-weight: 800;
+  font-size: 1.05rem;
 }
 
 /* Small screens: the margin line moves to the left edge */
@@ -287,6 +295,7 @@ dd { margin: 0; }
   .field { gap: 0.75rem; }
   .field span { flex-basis: 3.75rem; }
   .intro { font-size: 1.125rem; }
+  .links { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
