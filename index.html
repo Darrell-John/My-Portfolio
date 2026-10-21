@@ -31,7 +31,7 @@
       <a href="#work">Work</a>
       <a href="#study">Study</a>
       <a href="#skills">Skills</a>
-      <a href="#hire">Hire me</a>
+      <a class="nav-cta" href="#hire">Work with me</a>
       <a href="#contact">Contact</a>
       <button class="theme-toggle" type="button" aria-label="Switch to dark mode">
         <svg class="moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
@@ -43,7 +43,7 @@
       <div class="hello-wrap">
         <div class="hello-text">
           <p class="greet">Hello, I’m</p>
-          <h1 class="hello" aria-label="Darrell John"><span aria-hidden="true"><span class="w"><span class="ch" style="--i:0">D</span><span class="ch" style="--i:1">a</span><span class="ch" style="--i:2">r</span><span class="ch" style="--i:3">r</span><span class="ch" style="--i:4">e</span><span class="ch" style="--i:5">l</span><span class="ch" style="--i:6">l</span></span> <span class="w"><span class="ch" style="--i:8">J</span><span class="ch" style="--i:9">o</span><span class="ch" style="--i:10">h</span><span class="ch" style="--i:11">n</span></span></span><svg class="scribble" viewBox="0 0 300 6" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M3 3 H297" pathLength="1"/></svg></h1>
+          <h1 class="hello" aria-label="Darrell John"><span aria-hidden="true"><span class="w"><span class="ch" style="--i:0">D</span><span class="ch" style="--i:1">a</span><span class="ch" style="--i:2">r</span><span class="ch" style="--i:3">r</span><span class="ch" style="--i:4">e</span><span class="ch" style="--i:5">l</span><span class="ch" style="--i:6">l</span></span> <span class="w"><span class="ch" style="--i:8">J</span><span class="ch" style="--i:9">o</span><span class="ch" style="--i:10">h</span><span class="ch" style="--i:11">n</span></span></span><svg class="scribble" viewBox="0 0 300 14" aria-hidden="true" focusable="false"><path d="M3 9 C 50 3, 95 12, 150 7 S 250 4, 297 8" pathLength="1"/></svg></h1>
           <p class="role">I build <span class="sr-only">web software for schools and clients.</span><span class="typed" id="typed" aria-hidden="true">school management systems</span><span class="caret" aria-hidden="true"></span></p>
         </div>
         <figure class="photo">
@@ -65,7 +65,7 @@
         <h2 id="h-work">Work</h2>
         <div class="body">
           <article>
-            <h3>ZimClass<span class="status live">Live</span></h3>
+            <h3><span class="t">ZimClass</span><span class="status live">Live</span></h3>
             <p class="kind">Solo project, multi-tenant school platform</p>
             <figure class="shot">
               <a href="https://zimclass.johndarrellkeys.workers.dev" target="_blank" rel="noopener noreferrer"><img src="images/zimclass.webp" alt="ZimClass admin dashboard showing fees collected, outstanding fees, student and teacher totals, and a weekly fees chart" width="1366" height="635" loading="lazy"></a>
@@ -76,7 +76,7 @@
           </article>
 
           <article>
-            <h3>Portfolio management system<span class="status">In development</span></h3>
+            <h3><span class="t">Portfolio management system</span><span class="status">In development</span></h3>
             <p class="kind">Client project, primary developer</p>
             <figure class="shot">
               <img src="images/fx-pms.webp" alt="Client profile page in the portfolio management system, with the risk questionnaire and signed management agreement both marked done" width="1343" height="641" loading="lazy">
@@ -88,7 +88,7 @@
           </article>
 
           <article>
-            <h3>ProfExpress</h3>
+            <h3><span class="t">ProfExpress</span></h3>
             <p class="kind">Delivery ordering app</p>
             <figure class="shot">
               <img src="images/profexpress.webp" alt="ProfExpress order form with pickup and drop-off addresses, a choice of six vehicle types, and a calculated price for a 1.16 km trip" width="1019" height="593" loading="lazy">
@@ -99,14 +99,14 @@
           </article>
 
           <article>
-            <h3>EduSync</h3>
+            <h3><span class="t">EduSync</span></h3>
             <p class="kind">The first version of ZimClass</p>
             <p>My first full system, written in plain HTML, CSS and JavaScript on top of a Supabase backend. It handled parents with several children, proof-of-payment uploads with approve and reject actions, and fee reminders over WhatsApp. I rebuilt it in React once the number of pages and roles made the plain version hard to maintain.</p>
             <ul class="stack" aria-label="Built with"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>Supabase</li></ul>
           </article>
 
           <article>
-            <h3>Music analysis platform</h3>
+            <h3><span class="t">Music analysis platform</span></h3>
             <p class="kind">In planning</p>
             <p>A web app where a guitarist or keyboardist uploads a recording and gets back the key, chord progression and tablature. I have written a five-phase build plan, and the first phase tests transcription accuracy on twenty tracks before any interface is built.</p>
           </article>
@@ -278,6 +278,30 @@
           note.textContent = "Opening WhatsApp…";
         }
       });
+    })();
+  </script>
+  <script>
+    (function () {
+      /* Menu: mark the section you are reading, and show a ruled line once the page has scrolled */
+      var nav = document.querySelector(".top");
+      if (!nav) return;
+      var links = {};
+      nav.querySelectorAll('a[href^="#"]').forEach(function (a) { links[a.getAttribute("href").slice(1)] = a; });
+      function setCurrent(id) {
+        Object.keys(links).forEach(function (k) {
+          if (k === id) links[k].setAttribute("aria-current", "true"); else links[k].removeAttribute("aria-current");
+        });
+      }
+      if ("IntersectionObserver" in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) { if (e.isIntersecting) setCurrent(e.target.id); });
+        }, { rootMargin: "-35% 0px -60% 0px" });
+        Object.keys(links).forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+      }
+      window.addEventListener("scroll", function () {
+        nav.classList.toggle("scrolled", window.scrollY > 8);
+        if (window.scrollY < 200) setCurrent("");
+      }, { passive: true });
     })();
   </script>
 </body>
