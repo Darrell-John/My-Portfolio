@@ -271,6 +271,7 @@ a:focus-visible {
 
 /* Pages of the book, from Work onward: no margin column, full-width flow */
 .row {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr;
   row-gap: 1.25rem;
@@ -280,6 +281,7 @@ a:focus-visible {
 .row:first-child { border-top: 0; padding-top: 0; }
 
 .row h2 {
+  position: relative;
   margin: 0;
   padding-bottom: 0.4rem;
   border-bottom: 2px solid var(--ruling);
@@ -313,15 +315,15 @@ h3 {
 .built { font-size: 0.95rem; color: var(--muted); }
 
 /* Project screenshots, pasted onto the page like a printout */
-.shot { margin: 0 0 1rem; }
-.shot img {
-  display: block;
-  width: 100%;
-  height: auto;
+.shot {
+  position: relative;
+  margin: 0 0 1rem;
+  overflow: hidden;
   border: 2px solid var(--ink);
   background: var(--ruling);
   box-shadow: 4px 4px 0 var(--shadow);
 }
+.shot img { display: block; width: 100%; height: auto; }
 .shot a { display: block; }
 
 /* Status badge next to a project title */
@@ -355,7 +357,7 @@ h3 {
   list-style: none;
   border-left: 3px solid var(--ruling);
 }
-.plain li { padding: 0.1rem 0 0.1rem 1rem; }
+.plain li { position: relative; padding: 0.1rem 0 0.1rem 1rem; }
 
 dl { margin: 0; }
 dt {
@@ -378,6 +380,8 @@ dd { margin: 0; }
 /* Buttons under the intro */
 .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.75rem 0 0; }
 .btn {
+  position: relative;
+  overflow: hidden;
   display: inline-block;
   padding: 0.7rem 1.25rem;
   background: var(--ink);
@@ -412,6 +416,7 @@ dd { margin: 0; }
 }
 .skillgrid { display: grid; gap: 1.25rem; }
 .skillgrid > * {
+  position: relative;
   padding: 1rem 1.1rem 1.1rem;
   border: 1.5px solid var(--ruling);
   background: var(--surface);
@@ -500,60 +505,285 @@ dd { margin: 0; }
 }
 
 /* A small lift on the screenshot that links to the live site */
-@media (prefers-reduced-motion: no-preference) {
-  .shot img { transition: transform 0.35s var(--lift), box-shadow 0.35s var(--lift); }
-  .shot img:hover,
-  .shot a:focus-visible img {
-    transform: translateY(-4px);
-    box-shadow: 6px 10px 0 var(--shadow), 0 16px 28px -10px var(--glow);
-  }
-
-  .skillgrid > * { transition: transform 0.35s var(--lift), box-shadow 0.35s var(--lift), border-color 0.25s ease; }
-  .skillgrid > *:hover,
-  .skillgrid > *:focus-within {
-    transform: translateY(-4px);
-    border-color: var(--ink);
-    box-shadow: 4px 8px 0 var(--shadow), 0 14px 26px -10px var(--glow);
-  }
-
-  .btn, .links a { transition: transform 0.2s var(--lift), background 0.2s ease, box-shadow 0.2s ease; }
-  .btn:hover { transform: translateY(-2px); box-shadow: 3px 4px 0 var(--shadow); }
-  .btn:active { transform: none; box-shadow: none; }
-  .links a:hover { transform: translateY(-3px); box-shadow: 3px 5px 0 var(--shadow); }
-  .stack li { transition: border-color 0.2s ease, transform 0.2s var(--lift); }
-  .stack li:hover { border-color: var(--ink); transform: translateY(-2px); }
-
-  /* Pulsing dot on live projects */
-  .status.live::before { animation: pulse 2s ease-out infinite; }
+/* Margin doodles: a little pencil sketch at the end of each section heading */
+.row::after {
+  content: "";
+  position: absolute;
+  right: 0.5rem;
+  top: 2.4rem;
+  width: 3.25rem;
+  height: 3.25rem;
+  background: var(--margin);
+  -webkit-mask: var(--doodle) center / contain no-repeat;
+  mask: var(--doodle) center / contain no-repeat;
+  pointer-events: none;
 }
+#work    { --doodle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 3C25 17 31 23 45 24C31 25 25 31 24 45C23 31 17 25 3 24C17 23 23 17 24 3Z' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+#study   { --doodle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M8 30C2 12 30 2 40 14C48 26 20 44 12 30C6 20 24 14 30 22' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+#skills  { --doodle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M6 26L19 38L42 10' fill='none' stroke='black' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+#hire    { --doodle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M6 38C10 14 30 8 42 26M42 26L31 24M42 26L43 15' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+#contact { --doodle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 42C6 28 4 16 12 10C18 6 24 11 24 15C24 11 30 6 36 10C44 16 42 28 24 42Z' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+@media (max-width: 44rem) { .row::after { width: 2.5rem; height: 2.5rem; top: 2.6rem; right: 0; } }
+
+/* Section headings: a short red pen stroke sits on the blue ruled underline */
+.row > h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 5rem;
+  height: 2px;
+  background: var(--margin);
+  transform-origin: left;
+}
+
+/* ---------- Motion (everything below is switched off for reduced-motion) ---------- */
 @keyframes pulse {
   0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--live) 55%, transparent); }
   70%  { box-shadow: 0 0 0 0.5rem transparent; }
   100% { box-shadow: 0 0 0 0 transparent; }
 }
+@keyframes blink-soft { 50% { opacity: 0.3; } }
+@keyframes bob { 50% { translate: 0 -5px; } }
+@keyframes nudge { 50% { transform: translateY(3px); } }
 
-/* Scroll-triggered reveals, pure CSS (scroll-driven animations).
-   Browsers without support, and anyone preferring reduced motion, simply see the content. */
-@keyframes reveal-up {
-  from { opacity: 0; transform: translateY(1.75rem) scale(0.97); }
-  to   { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: no-preference) {
+
+  /* Pictures: tilted like prints pasted into the book, straighten and lift on hover */
+  .shot {
+    rotate: -0.7deg;
+    transition: transform 0.35s var(--lift), box-shadow 0.35s var(--lift), rotate 0.35s var(--lift);
+  }
+  article:nth-child(even) .shot { rotate: 0.7deg; }
+  .shot:hover,
+  .shot:focus-within {
+    rotate: 0deg;
+    transform: translateY(-5px);
+    box-shadow: 7px 11px 0 var(--shadow), 0 18px 30px -10px var(--glow);
+  }
+  .shot img { transition: scale 0.7s var(--lift); }
+  .shot:hover img { scale: 1.14; }
+  .shot::after {               /* light sweeping over the print on hover */
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, 0.35) 50%, transparent 62%);
+    transform: translateX(-120%);
+    pointer-events: none;
+  }
+  .shot:hover::after { transform: translateX(120%); transition: transform 0.9s ease; }
+
+  /* Status pills */
+  .status.live::before { animation: pulse 2s ease-out infinite; }
+  .status:not(.live)::before { animation: blink-soft 1.8s ease-in-out infinite; }
+
+  /* Boxes that respond: chips, skill cards, list items, tiles, buttons */
+  .stack li {
+    background-image: linear-gradient(var(--ink), var(--ink));
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    transition: background-size 0.3s var(--lift), color 0.3s ease, transform 0.25s var(--lift), border-color 0.2s ease;
+  }
+  .stack li:hover { background-size: 100% 100%; color: var(--on-ink); border-color: var(--ink); transform: translateY(-3px) rotate(-2deg); }
+
+  .skillgrid > * {
+    transition: transform 0.35s var(--lift), box-shadow 0.35s var(--lift), border-color 0.25s ease;
+  }
+  .skillgrid > *::before {     /* red margin-pen bar that draws across the top */
+    content: "";
+    position: absolute;
+    top: -1.5px;
+    left: -1.5px;
+    right: -1.5px;
+    height: 3px;
+    background: var(--margin);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s var(--lift);
+  }
+  .skillgrid > *:hover,
+  .skillgrid > *:focus-within {
+    transform: translateY(-5px);
+    border-color: var(--ink);
+    box-shadow: 4px 9px 0 var(--shadow), 0 16px 28px -10px var(--glow);
+  }
+  .skillgrid > *:hover::before,
+  .skillgrid > *:focus-within::before { transform: scaleX(1); }
+
+  .plain li { transition: translate 0.25s var(--lift), color 0.2s ease; }
+  .plain li::before {          /* margin line grows beside the hovered course */
+    content: "";
+    position: absolute;
+    left: -3px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--margin);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.3s var(--lift);
+  }
+  .plain li:hover { translate: 0.4rem 0; color: var(--ink); }
+  .plain li:hover::before { transform: scaleY(1); }
+
+  .links a {
+    background-color: var(--surface);
+    background-image: linear-gradient(var(--ink), var(--ink));
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    transition: background-size 0.4s var(--lift), color 0.3s ease, transform 0.25s var(--lift), box-shadow 0.25s var(--lift);
+  }
+  .links a:hover {
+    background-color: var(--surface);
+    background-image: linear-gradient(var(--ink), var(--ink));
+    background-size: 100% 100%;
+    color: var(--on-ink);
+    transform: translateY(-4px);
+    box-shadow: 4px 6px 0 var(--shadow);
+  }
+  .icon { transition: transform 0.3s var(--lift); }
+  .links a:hover .icon { transform: scale(1.2) rotate(-8deg); }
+
+  .btn { transition: transform 0.2s var(--lift), background 0.2s ease, box-shadow 0.2s ease; }
+  .btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, 0.4) 50%, transparent 62%);
+    transform: translateX(-120%);
+    pointer-events: none;
+  }
+  .btn:hover { transform: translateY(-3px); box-shadow: 3px 5px 0 var(--shadow); }
+  .btn:hover::after { transform: translateX(120%); transition: transform 0.7s ease; }
+  .btn:active { transform: none; box-shadow: none; }
+  .btn-download:hover svg { animation: nudge 0.7s ease-in-out infinite; }
 }
+
+/* Scroll-driven motion (Chrome, Edge, Safari). Other browsers just show the content. */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    .row > h2,
-    .body > p,
-    .body > .plain,
-    .skillgrid > * {
-      animation: reveal-up linear backwards;
-      animation-timeline: view();
-      animation-range: entry 0% entry 100%;
+
+    @keyframes reveal-up {
+      from { opacity: 0; transform: translateY(1.75rem) scale(0.97); }
+      to   { opacity: 1; transform: none; }
     }
-    /* tall blocks finish fading in after a short scroll, not their full height */
-    .row article,
-    .hire {
-      animation: reveal-up linear backwards;
+    @keyframes slide-l {
+      from { opacity: 0; transform: translateX(-2.25rem); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes slide-r {
+      from { opacity: 0; transform: translateX(2.25rem); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes pop {
+      from { opacity: 0; transform: scale(0.4) rotate(-10deg) translateY(0.6rem); }
+      60%  { opacity: 1; transform: scale(1.08) rotate(2deg); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes print-in {        /* the picture is wiped in like a print being laid down */
+      from { opacity: 0; clip-path: inset(0 100% 0 0); transform: translateY(2.5rem) scale(0.93); }
+      to   { opacity: 1; clip-path: inset(-1.5rem); transform: none; }
+    }
+    @keyframes drift {           /* the picture slides slowly inside its frame as you scroll */
+      from { transform: translateY(-3%); }
+      to   { transform: translateY(3%); }
+    }
+    @keyframes pen-line {
+      from { transform: scaleX(0); }
+      to   { transform: scaleX(1); }
+    }
+    @keyframes underline-draw {
+      from { background-size: 0% 3px; }
+      to   { background-size: 100% 3px; }
+    }
+    @keyframes doodle {
+      from { transform: translateY(-0.75rem) rotate(-25deg) scale(0.75); }
+      to   { transform: translateY(1.75rem) rotate(25deg) scale(1.1); }
+    }
+    @keyframes progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+    /* shared: start when the element peeks in, finish after a short scroll */
+    .row > h2,
+    .body > p, .body > .plain,
+    article > p, article > .kind,
+    .skillgrid > *, .stack li, .plain li,
+    .links li, .hire > *, .shot, article > h3 {
       animation-timeline: view();
-      animation-range: entry 0px entry 260px;
+      animation-fill-mode: backwards;
+      animation-timing-function: cubic-bezier(0.22, 0.8, 0.25, 1);
+    }
+
+    .row > h2, .body > p, .body > .plain, article > p, article > .kind {
+      animation-name: reveal-up;
+      animation-range: entry 0px entry 150px;
+    }
+
+    article > h3 {
+      animation-name: slide-l;
+      animation-range: entry 0px entry 160px;
+      display: inline-block;
+      padding-bottom: 0.25rem;
+      background: linear-gradient(var(--margin), var(--margin)) no-repeat left bottom / 0% 3px;
+    }
+    article > h3 { animation-name: slide-l, underline-draw; animation-timeline: view(), view(); animation-range: entry 0px entry 160px, entry 40px entry 260px; animation-fill-mode: backwards, both; }
+
+    .shot {
+      animation-name: print-in;
+      animation-range: entry 0px entry 300px;
+    }
+    .shot img { scale: 1.07; animation: drift linear both; animation-timeline: view(); animation-range: cover 0% cover 100%; }
+
+    /* headings: the red pen stroke draws itself */
+    .row > h2::after { animation: pen-line linear both; animation-timeline: view(); animation-range: entry 20px entry 220px; }
+
+    /* chips pop in one after another */
+    .stack li { animation-name: pop; animation-range: entry calc(var(--k, 0) * 30px) entry calc(120px + var(--k, 0) * 30px); }
+    .stack li:nth-child(2) { --k: 1; } .stack li:nth-child(3) { --k: 2; } .stack li:nth-child(4) { --k: 3; }
+    .stack li:nth-child(5) { --k: 4; } .stack li:nth-child(6) { --k: 5; } .stack li:nth-child(7) { --k: 6; }
+
+    /* skill cards rise in, then float gently while you read */
+    .skillgrid > * {
+      animation-name: reveal-up, bob;
+      animation-timeline: view(), auto;
+      animation-range: entry 0px entry 170px, normal;
+      animation-duration: auto, 6s;
+      animation-timing-function: ease-out, ease-in-out;
+      animation-iteration-count: 1, infinite;
+      animation-fill-mode: backwards, none;
+      animation-delay: 0s, 0s;
+    }
+    .skillgrid > :nth-child(2) { animation-delay: 0s, -2s; }
+    .skillgrid > :nth-child(3) { animation-delay: 0s, -4s; }
+
+    /* course list slides in line by line */
+    .plain li { animation-name: slide-l; animation-range: entry calc(var(--k, 0) * 25px) entry calc(110px + var(--k, 0) * 25px); }
+    .plain li:nth-child(2) { --k: 1; } .plain li:nth-child(3) { --k: 2; } .plain li:nth-child(4) { --k: 3; }
+    .plain li:nth-child(5) { --k: 4; } .plain li:nth-child(6) { --k: 5; }
+
+    /* contact tiles arrive from alternating sides */
+    .links li:nth-child(odd)  { animation-name: slide-l; animation-range: entry 0px entry 170px; }
+    .links li:nth-child(even) { animation-name: slide-r; animation-range: entry 0px entry 170px; }
+
+    /* enquiry form fields build up in order */
+    .hire > * { animation-name: reveal-up; animation-range: entry calc(var(--k, 0) * 30px) entry calc(140px + var(--k, 0) * 30px); }
+    .hire > :nth-child(3), .hire > :nth-child(4) { --k: 1; }
+    .hire > :nth-child(5) { --k: 2; }
+    .hire > :nth-child(n+6) { --k: 3; }
+
+    /* margin doodles turn and drift as their section scrolls past */
+    .row::after { animation: doodle linear both; animation-timeline: view(); animation-range: cover 0% cover 100%; }
+
+    /* thin red progress line across the top of the screen */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: 4px;
+      background: var(--margin);
+      transform-origin: left;
+      z-index: 20;
+      animation: progress linear both;
+      animation-timeline: scroll(root);
     }
   }
 }
@@ -566,7 +796,8 @@ dd { margin: 0; }
 
 /* Print or save as PDF: a clean one-column CV */
 @media print {
-  .shot img { box-shadow: none; }
+  .shot { box-shadow: none; }
+  .row::after, body::before { display: none; }
   .top, .actions, .skip, .theme-toggle, #hire, .scribble, .caret { display: none; }
   .photo img { transform: none; }
   .cover::before { display: none; }
