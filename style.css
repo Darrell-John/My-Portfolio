@@ -7,6 +7,14 @@
   --ink: #14206b;
   --text: #1d2330;
   --muted: #556075;
+  --surface: #fff;
+  --on-ink: #fff;
+  --ink-hover: #0c1550;
+  --wash: #e8f0fb;
+  --line: rgba(191, 211, 238, 0.4);
+  --shadow: #14206b;
+  --live: #1f9d55;
+  --building: #c78a00;
   --margin-col: 9rem;
   --gap: 2.5rem;
 }
@@ -17,7 +25,9 @@ html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  background: var(--paper);
+  background-color: var(--paper);
+  background-image: linear-gradient(var(--line) 1px, transparent 1px);
+  background-size: 100% 2rem;
   color: var(--text);
   font: 1.0625rem/1.7 Literata, Georgia, "Times New Roman", serif;
 }
@@ -40,7 +50,7 @@ a:focus-visible {
   left: -999px;
   top: 0.5rem;
   background: var(--ink);
-  color: #fff;
+  color: var(--on-ink);
   padding: 0.5rem 0.75rem;
 }
 .skip:focus { left: 0.5rem; z-index: 10; }
@@ -65,8 +75,9 @@ a:focus-visible {
   align-items: flex-start;
   gap: 1.75rem;
   max-width: 44rem;
-  background: #fff;
+  background: var(--surface);
   border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--shadow);
   padding: 1.5rem 1.75rem 1.75rem;
   transform: rotate(-1deg);
 }
@@ -200,8 +211,32 @@ h3 {
   height: auto;
   border: 2px solid var(--ink);
   background: var(--ruling);
+  box-shadow: 4px 4px 0 var(--shadow);
 }
 .shot a { display: block; }
+
+/* Status badge next to a project title */
+.status {
+  display: inline-block;
+  margin-left: 0.6rem;
+  padding: 0.1rem 0.6rem 0.1rem 0.5rem;
+  border: 1.5px solid var(--ruling);
+  background: var(--surface);
+  font-weight: 500;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  vertical-align: middle;
+}
+.status::before {
+  content: "";
+  display: inline-block;
+  width: 0.55rem;
+  height: 0.55rem;
+  margin-right: 0.4rem;
+  border-radius: 50%;
+  background: var(--building);
+}
+.status.live::before { background: var(--live); }
 
 .plain {
   margin: 0 0 1rem;
@@ -235,15 +270,15 @@ dd { margin: 0; }
   display: inline-block;
   padding: 0.7rem 1.25rem;
   background: var(--ink);
-  color: #fff;
+  color: var(--on-ink);
   border: 2px solid var(--ink);
   font-family: Archivo, Arial, sans-serif;
   font-weight: 700;
   text-decoration: none;
 }
-.btn:hover { background: #0c1550; border-color: #0c1550; }
+.btn:hover { background: var(--ink-hover); border-color: var(--ink-hover); }
 .btn.alt { background: transparent; color: var(--ink); }
-.btn.alt:hover { background: #e8f0fb; }
+.btn.alt:hover { background: var(--wash); }
 .btn:focus-visible { outline-offset: 3px; }
 
 /* Stacks and skills as small labelled lists */
@@ -258,7 +293,7 @@ dd { margin: 0; }
 .stack li {
   padding: 0.15rem 0.6rem;
   border: 1.5px solid var(--ruling);
-  background: #fff;
+  background: var(--surface);
   font-family: Archivo, Arial, sans-serif;
   font-weight: 500;
   font-size: 0.875rem;
@@ -285,11 +320,11 @@ dd { margin: 0; }
   height: 100%;
   padding: 0.85rem 1rem;
   border: 2px solid var(--ink);
-  background: #fff;
+  background: var(--surface);
   text-decoration: none;
   overflow-wrap: anywhere;
 }
-.links a:hover { background: var(--ink); color: #fff; }
+.links a:hover { background: var(--ink); color: var(--on-ink); }
 .links .t { min-width: 0; }
 .links strong {
   display: block;
@@ -310,8 +345,8 @@ dd { margin: 0; }
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.links a:hover .icon { fill: #fff; }
-.links a:hover .icon-line { fill: none; stroke: #fff; }
+.links a:hover .icon { fill: var(--on-ink); }
+.links a:hover .icon-line { fill: none; stroke: var(--on-ink); }
 
 /* Small screens: the margin line moves to the left edge */
 @media (max-width: 44rem) {
@@ -327,12 +362,42 @@ dd { margin: 0; }
   .links { grid-template-columns: 1fr; }
 }
 
+/* Dark mode follows the visitor's device setting */
+@media screen and (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --paper: #12151f;
+    --surface: #1a1f2e;
+    --ruling: #2c3a57;
+    --margin: #e0584e;
+    --ink: #a9bcff;
+    --text: #e3e7f0;
+    --muted: #9aa4b8;
+    --on-ink: #0d1226;
+    --ink-hover: #c4d1ff;
+    --wash: #232c45;
+    --line: rgba(120, 150, 210, 0.1);
+    --shadow: #2c3a57;
+    --live: #3ec47c;
+    --building: #e0a82e;
+  }
+  .photo::before { background: rgba(120, 150, 210, 0.55); }
+}
+
+/* A small lift on the screenshot that links to the live site */
+@media (prefers-reduced-motion: no-preference) {
+  .shot a img { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .shot a:hover img { transform: translateY(-2px); box-shadow: 6px 7px 0 var(--shadow); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
 
 /* Print or save as PDF: a clean one-column CV */
 @media print {
+  body { background-image: none; }
+  .label, .shot img { box-shadow: none; }
   .top, .actions, .skip { display: none; }
   .label { transform: none; }
   .photo img { transform: none; }
