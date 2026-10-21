@@ -192,6 +192,17 @@ h3 {
 }
 .built { font-size: 0.95rem; color: var(--muted); }
 
+/* Project screenshots, pasted onto the page like a printout */
+.shot { margin: 0 0 1rem; }
+.shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 2px solid var(--ink);
+  background: var(--ruling);
+}
+.shot a { display: block; }
+
 .plain {
   margin: 0 0 1rem;
   padding: 0;
