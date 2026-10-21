@@ -268,7 +268,9 @@ dd { margin: 0; }
   list-style: none;
 }
 .links a {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
   height: 100%;
   padding: 0.85rem 1rem;
   border: 2px solid var(--ink);
@@ -277,12 +279,28 @@ dd { margin: 0; }
   overflow-wrap: anywhere;
 }
 .links a:hover { background: var(--ink); color: #fff; }
-.links span {
+.links .t { min-width: 0; }
+.links strong {
   display: block;
   font-family: Archivo, Arial, sans-serif;
   font-weight: 800;
   font-size: 1.05rem;
 }
+.icon {
+  flex: 0 0 auto;
+  width: 1.75rem;
+  height: 1.75rem;
+  fill: var(--brand);
+}
+.icon-line {
+  fill: none;
+  stroke: var(--brand);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.links a:hover .icon { fill: #fff; }
+.links a:hover .icon-line { fill: none; stroke: #fff; }
 
 /* Small screens: the margin line moves to the left edge */
 @media (max-width: 44rem) {
