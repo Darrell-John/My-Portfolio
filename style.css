@@ -14,8 +14,8 @@
   --shadow: #14206b;
   --live: #1f9d55;
   --building: #c78a00;
-  --margin-col: 9rem;
-  --gap: 2.5rem;
+  --lift: cubic-bezier(0.22, 0.8, 0.25, 1);
+  --glow: rgba(20, 32, 107, 0.18);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -94,7 +94,17 @@ a:focus-visible {
 :root[data-theme="dark"] .theme-toggle .moon { display: none; }
 
 /* Cover: animated introduction */
-.cover { padding: 3rem 0 3.5rem; }
+.cover { position: relative; padding: 3rem 0 3.5rem; }
+/* The red margin line runs down the hero and stops where the Work section begins */
+.cover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -0.8rem;
+  width: 2px;
+  background: var(--margin);
+}
 
 /* Passport-style photo, taped to the label */
 .photo {
@@ -235,6 +245,13 @@ a:focus-visible {
   accent-color: var(--ink);
 }
 .hire textarea { resize: vertical; min-height: 8rem; }
+.hire input, .hire select, .hire textarea {
+  transition: border-color 0.2s ease, box-shadow 0.25s ease;
+}
+.hire input:hover, .hire select:hover, .hire textarea:hover { box-shadow: 3px 3px 0 var(--ruling); }
+.hire input:focus, .hire select:focus, .hire textarea:focus {
+  box-shadow: 0 0 0 4px var(--glow), 3px 3px 0 var(--margin);
+}
 .hire input:focus-visible, .hire select:focus-visible, .hire textarea:focus-visible {
   outline: 3px solid var(--ink);
   outline-offset: 2px;
@@ -252,40 +269,28 @@ a:focus-visible {
   line-height: 1.6;
 }
 
-/* Pages of the book: section titles sit in the margin */
-.sheet { position: relative; }
-.sheet::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: calc(var(--margin-col) + var(--gap) / 2);
-  width: 2px;
-  background: var(--margin);
-}
-
+/* Pages of the book, from Work onward: no margin column, full-width flow */
 .row {
   display: grid;
-  grid-template-columns: var(--margin-col) 1fr;
-  column-gap: var(--gap);
-  padding: 2.5rem 0;
+  grid-template-columns: 1fr;
+  row-gap: 1.25rem;
+  padding: 2.75rem 0;
   border-top: 1px solid var(--ruling);
 }
 .row:first-child { border-top: 0; padding-top: 0; }
 
 .row h2 {
-  position: sticky;
-  top: 1.5rem;
-  align-self: start;
   margin: 0;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--ruling);
   font-family: Archivo, Arial, sans-serif;
   font-weight: 800;
-  font-size: 1.6rem;
+  font-size: 1.9rem;
   line-height: 1.2;
   color: var(--ink);
 }
 
-.body { max-width: 42rem; }
+.body { max-width: 52rem; }
 .body > :first-child { margin-top: 0; }
 .body p { margin: 0 0 1rem; }
 
@@ -325,6 +330,7 @@ h3 {
   margin-left: 0.6rem;
   padding: 0.1rem 0.6rem 0.1rem 0.5rem;
   border: 1.5px solid var(--ruling);
+  border-radius: 999px;
   background: var(--surface);
   font-weight: 500;
   font-size: 0.8rem;
@@ -341,6 +347,7 @@ h3 {
   background: var(--building);
 }
 .status.live::before { background: var(--live); }
+.status.live { border-color: color-mix(in srgb, var(--live) 45%, var(--ruling)); }
 
 .plain {
   margin: 0 0 1rem;
@@ -403,7 +410,12 @@ dd { margin: 0; }
   font-size: 0.875rem;
   line-height: 1.5;
 }
-.skillgrid { display: grid; gap: 1.5rem; }
+.skillgrid { display: grid; gap: 1.25rem; }
+.skillgrid > * {
+  padding: 1rem 1.1rem 1.1rem;
+  border: 1.5px solid var(--ruling);
+  background: var(--surface);
+}
 .skillgrid h3 { font-size: 1.05rem; margin-bottom: 0.5rem; }
 .skillgrid .stack { margin: 0; }
 .next { margin-top: 1.5rem !important; }
@@ -454,10 +466,9 @@ dd { margin: 0; }
 
 /* Small screens: the margin line moves to the left edge */
 @media (max-width: 44rem) {
-  .sheet { padding-left: 1.1rem; }
-  .sheet::before { left: 0; }
-  .row { grid-template-columns: 1fr; }
-  .row h2 { position: static; margin-bottom: 1rem; }
+  .cover::before { left: -0.6rem; }
+  .row h2 { font-size: 1.6rem; }
+  .skillgrid > * { padding: 0.9rem; }
   .hello-wrap { grid-template-columns: 1fr; gap: 1.5rem; }
   .photo { order: -1; width: 8rem; }
   .role { min-height: 3em; }
@@ -483,14 +494,68 @@ dd { margin: 0; }
     --shadow: #2c3a57;
     --live: #3ec47c;
     --building: #e0a82e;
+    --glow: rgba(169, 188, 255, 0.28);
   }
   :root[data-theme="dark"] .photo::before { background: rgba(120, 150, 210, 0.55); }
 }
 
 /* A small lift on the screenshot that links to the live site */
 @media (prefers-reduced-motion: no-preference) {
-  .shot a img { transition: transform 0.2s ease, box-shadow 0.2s ease; }
-  .shot a:hover img { transform: translateY(-2px); box-shadow: 6px 7px 0 var(--shadow); }
+  .shot img { transition: transform 0.35s var(--lift), box-shadow 0.35s var(--lift); }
+  .shot img:hover,
+  .shot a:focus-visible img {
+    transform: translateY(-4px);
+    box-shadow: 6px 10px 0 var(--shadow), 0 16px 28px -10px var(--glow);
+  }
+
+  .skillgrid > * { transition: transform 0.35s var(--lift), box-shadow 0.35s var(--lift), border-color 0.25s ease; }
+  .skillgrid > *:hover,
+  .skillgrid > *:focus-within {
+    transform: translateY(-4px);
+    border-color: var(--ink);
+    box-shadow: 4px 8px 0 var(--shadow), 0 14px 26px -10px var(--glow);
+  }
+
+  .btn, .links a { transition: transform 0.2s var(--lift), background 0.2s ease, box-shadow 0.2s ease; }
+  .btn:hover { transform: translateY(-2px); box-shadow: 3px 4px 0 var(--shadow); }
+  .btn:active { transform: none; box-shadow: none; }
+  .links a:hover { transform: translateY(-3px); box-shadow: 3px 5px 0 var(--shadow); }
+  .stack li { transition: border-color 0.2s ease, transform 0.2s var(--lift); }
+  .stack li:hover { border-color: var(--ink); transform: translateY(-2px); }
+
+  /* Pulsing dot on live projects */
+  .status.live::before { animation: pulse 2s ease-out infinite; }
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--live) 55%, transparent); }
+  70%  { box-shadow: 0 0 0 0.5rem transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+/* Scroll-triggered reveals, pure CSS (scroll-driven animations).
+   Browsers without support, and anyone preferring reduced motion, simply see the content. */
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(1.75rem) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .row > h2,
+    .body > p,
+    .body > .plain,
+    .skillgrid > * {
+      animation: reveal-up linear backwards;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+    /* tall blocks finish fading in after a short scroll, not their full height */
+    .row article,
+    .hire {
+      animation: reveal-up linear backwards;
+      animation-timeline: view();
+      animation-range: entry 0px entry 260px;
+    }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -504,8 +569,8 @@ dd { margin: 0; }
   .shot img { box-shadow: none; }
   .top, .actions, .skip, .theme-toggle, #hire, .scribble, .caret { display: none; }
   .photo img { transform: none; }
-  .sheet::before { display: none; }
+  .cover::before { display: none; }
   .row { break-inside: avoid; }
-  .row h2 { position: static; }
+  .skillgrid > * { border-color: #999; }
   a { text-decoration: none; }
 }
