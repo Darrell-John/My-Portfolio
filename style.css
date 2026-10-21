@@ -89,7 +89,7 @@ a:focus-visible {
 .top a:not(.nav-cta):focus-visible::after,
 .top a[aria-current="true"]::after { clip-path: inset(-20% -2% -20% 0); }
 
-/* "Hire me" stands out as the one action in the menu */
+/* "Work with me" stands out as the one action in the menu */
 .top .nav-cta {
   padding: 0.3rem 0.95rem;
   border: 2px solid var(--ink);
@@ -862,3 +862,131 @@ article > h3 .t::after {
   .skillgrid > * { border-color: #999; }
   a { text-decoration: none; }
 }
+
+/* =====================================================================
+   SKETCHBOOK LAYER. Each step below can be deleted on its own to test.
+   ===================================================================== */
+:root {
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .08 0 0 0 0 .12 0 0 0 0 .42 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --tape: color-mix(in srgb, var(--ruling) 85%, transparent);
+  --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+
+/* Step 1: the opening. The cover is a sheet of ruled paper that settles onto
+   the page; the portrait is laid on last. Only opacity/transform/rotate move. */
+.cover {
+  margin-top: 0.5rem;
+  padding: 2.25rem 2rem 2.5rem 2.9rem;
+  background-color: var(--surface);
+  background-image:
+    repeating-linear-gradient(to bottom, transparent 0 1.85rem, color-mix(in srgb, var(--ruling) 50%, transparent) 1.85rem calc(1.85rem + 1px)),
+    var(--grain);
+  border: 1.5px solid var(--ruling);
+  box-shadow: 0 1px 0 var(--ruling), 5px 7px 0 -1px color-mix(in srgb, var(--ruling) 70%, transparent);
+  rotate: -0.4deg;
+  animation: sheet-in 0.8s cubic-bezier(0.2, 0.8, 0.25, 1) both;
+}
+.cover::before { left: 1.55rem; }
+.hello-wrap { max-width: none; grid-template-columns: 1fr 13rem; }
+.intro { margin-top: 1.75rem; }
+.photo { rotate: 2.5deg; animation: photo-settle 0.9s cubic-bezier(0.2, 0.8, 0.25, 1) 0.9s both; }
+.photo img { box-shadow: 3px 5px 0 var(--ruling); }
+.scribble path.s2 { stroke-width: 2.5; opacity: 0.8; animation-delay: 1.65s; }
+@keyframes sheet-in { from { opacity: 0; translate: 0 1.5rem; rotate: -2deg; } to { opacity: 1; translate: 0 0; rotate: -0.4deg; } }
+@keyframes photo-settle { from { opacity: 0; translate: 0 -2rem; rotate: 9deg; } to { opacity: 1; translate: 0 0; rotate: 2.5deg; } }
+
+/* Step 2: hand-drawn annotations */
+.circled { position: relative; display: inline-block; padding: 0 0.25rem; font-style: normal; font-weight: 600; color: var(--ink); }
+.circled svg { position: absolute; inset: -0.3rem -0.35rem; width: calc(100% + 0.7rem); height: calc(100% + 0.6rem); overflow: visible; pointer-events: none; }
+.circled path { fill: none; stroke: var(--margin); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 0.9s ease 2.4s forwards; }
+.photo .note { position: absolute; left: -0.5rem; top: 100%; display: flex; align-items: flex-end; gap: 0.2rem; margin-top: 0.5rem; font-style: italic; font-size: 0.95rem; color: var(--muted); rotate: -3deg; animation: fade 0.6s ease 2s both; }
+.photo .note svg { width: 2rem; height: 2rem; fill: none; stroke: var(--margin); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.status { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.02em; }
+.built a[href^="http"]::after {
+  content: ""; display: inline-block; width: 0.9em; height: 0.9em; margin-left: 0.25em; vertical-align: -0.1em; background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 19C9 12 13 8 19 5M19 5H11M19 5L18 13' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 19C9 12 13 8 19 5M19 5H11M19 5L18 13' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* Step 3: Work is a pinboard. Screenshots lead; ZimClass is the big print. */
+#work .body { max-width: none; }
+.board { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 2.25rem 1.5rem; align-items: start; }
+.board article {
+  position: relative; display: flex; flex-direction: column; min-width: 0; margin: 0; padding: 1rem 1rem 1.1rem;
+  background-color: var(--surface); background-image: var(--grain);
+  border: 1.5px solid var(--ruling); box-shadow: 3px 4px 0 var(--ruling); rotate: var(--tilt, 0deg);
+}
+.board article > .shot { order: -1; margin-bottom: 1rem; }
+.board .shot:hover { transform: none; box-shadow: 4px 4px 0 var(--shadow); }
+.board article > p { max-width: 62ch; }
+.board article::before { /* a red pin */
+  content: ""; position: absolute; z-index: 2; top: -0.6rem; left: 50%; width: 0.95rem; height: 0.95rem; margin-left: -0.5rem; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ff9a90, var(--margin) 62%); box-shadow: 0 2px 3px rgba(0, 0, 0, 0.35);
+}
+.board article:nth-child(n+4)::before { width: 3.2rem; height: 1.1rem; margin-left: -1.6rem; top: -0.55rem; border-radius: 0; background: var(--tape); box-shadow: none; rotate: -3deg; }
+.board article:nth-child(1) { --tilt: -0.5deg; grid-column: 1 / -1; display: grid; grid-template-columns: 7fr 5fr; grid-template-rows: repeat(5, auto) 1fr; column-gap: 1.75rem; }
+.board article:nth-child(1) > * { grid-column: 2; }
+.board article:nth-child(1) > .shot { grid-column: 1; grid-row: 1 / span 6; order: 0; margin: 0; }
+.board article:nth-child(2) { --tilt: 0.7deg; grid-column: 1 / span 7; }
+.board article:nth-child(3) { --tilt: -0.6deg; grid-column: 8 / span 5; margin-top: 2.5rem; }
+.board article:nth-child(4) { --tilt: 0.8deg; grid-column: 1 / span 5; background-color: var(--wash); }
+.board article:nth-child(5) { --tilt: -0.5deg; grid-column: 6 / span 7; margin-top: 1rem; background-color: var(--wash); }
+
+/* Step 4: tighter rhythm, easier reading */
+.row { row-gap: 1rem; padding: 2.25rem 0; }
+.body p { max-width: 64ch; }
+.skillgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.skillgrid > * { background-image: var(--grain); }
+.skillgrid > :nth-child(1) { rotate: 0.5deg; }
+.skillgrid > :nth-child(2) { rotate: -0.4deg; }
+.skillgrid > :nth-child(3) { rotate: 0.3deg; }
+.plain { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1.5rem; }
+main.sheet { overflow-x: clip; }
+
+/* Step 5: gentle hover on pinned work, and the no-scroll-timeline fallback */
+@media (prefers-reduced-motion: no-preference) {
+  .board article { transition: rotate 0.35s var(--lift), translate 0.35s var(--lift), box-shadow 0.35s var(--lift); }
+  .board article:hover, .board article:focus-within { rotate: 0deg; translate: 0 -6px; box-shadow: 6px 11px 0 var(--ruling), 0 22px 30px -14px var(--glow); }
+  .built a[href^="http"]::after { transition: translate 0.25s var(--lift); }
+  .built a[href^="http"]:hover::after { translate: 0.2rem -0.2rem; }
+  html.io .rv { opacity: 0; translate: 0 1.5rem; transition: opacity 0.6s ease, translate 0.7s var(--lift); }
+  html.io .rv.in { opacity: 1; translate: 0 0; }
+}
+
+@media (max-width: 48rem) {
+  .board { display: block; }
+  .board article { margin: 0 0 1.75rem !important; }
+  .board article:nth-child(1) { display: flex; }
+  .board article:nth-child(1) > .shot { order: -1; margin-bottom: 1rem; }
+  .skillgrid, .plain { grid-template-columns: 1fr; }
+  .hello-wrap { grid-template-columns: 1fr; }
+}
+@media (max-width: 44rem) {
+  .cover { padding: 1.5rem 1rem 1.75rem 1.9rem; }
+  .cover::before { left: 0.9rem; }
+  .photo .note { left: 8.2rem; top: 55%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cover, .photo, .photo .note { animation: none; }
+  .circled path { animation: none; stroke-dashoffset: 0; }
+}
+@media print {
+  .cover, .board article, .skillgrid > *, .photo { rotate: 0deg; box-shadow: none; }
+  .board article::before, .photo .note { display: none; }
+}
+
+/* Step 6: crisp text. Tilted text renders soft, so the paper sheet and the text
+   cards stay straight. Only the artefacts tilt: screenshots, portrait, tape. */
+.cover { margin-bottom: 2.5rem; rotate: 0deg; animation-name: sheet-settle; }
+@keyframes sheet-settle { from { opacity: 0; translate: 0 1.5rem; rotate: -1.5deg; } to { opacity: 1; translate: 0 0; rotate: 0deg; } }
+.board article { rotate: 0deg; }
+.board article > .shot { rotate: calc(var(--tilt, 0deg) * 1.6); }
+.skillgrid > :nth-child(n) { rotate: 0deg; }
+@media (prefers-reduced-motion: no-preference) {
+  .board article { transition: translate 0.35s var(--lift), box-shadow 0.35s var(--lift); }
+  .board article > .shot { transition: rotate 0.4s var(--lift); }
+  .board article:hover, .board article:focus-within { rotate: 0deg; translate: 0 -5px; }
+  .board article:hover > .shot, .board article:focus-within > .shot { rotate: 0deg; }
+}
+@media (prefers-reduced-motion: reduce) { .cover { animation: none; } }
+@media print { .board article > .shot { rotate: 0deg; } }
