@@ -1104,3 +1104,128 @@ main.sheet { overflow-x: clip; }
   .hello .ch { text-shadow: none; }
   .btn, .top .nav-cta, .stack li { box-shadow: none; }
 }
+
+/* =====================================================================
+   PAGE-TURN + FLIP PASS. Delete this block to remove both effects.
+   ===================================================================== */
+
+/* 1. Page-turn reveal: each section swings open from its left edge, like a
+      notebook page being laid down. Scroll-driven, CSS only. */
+.row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: linear-gradient(90deg, transparent 10%, rgba(10, 16, 50, 0.2));
+  opacity: 0;
+  pointer-events: none;
+}
+:root[data-theme="dark"] .row::before { background: linear-gradient(90deg, transparent 10%, rgba(0, 0, 0, 0.4)); }
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes page-turn {
+      from { opacity: 0; transform: perspective(1600px) rotateY(32deg) translateY(1.5rem); }
+      55%  { opacity: 1; }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes page-shade { from { opacity: 1; } to { opacity: 0; } }
+
+    .row {
+      transform-origin: 0 0;
+      animation: page-turn cubic-bezier(0.22, 0.8, 0.25, 1) backwards;
+      animation-timeline: view();
+      animation-range: entry 0px entry 460px;
+    }
+    .row::before {
+      animation: page-shade linear backwards;
+      animation-timeline: view();
+      animation-range: entry 0px entry 460px;
+    }
+  }
+}
+
+/* 3. Skill cards flip over to show where each skill was used.
+      Hover on mouse devices; tap or press Space on touch and keyboard. */
+.skillgrid > .flip {
+  display: grid;
+  padding: 0;
+  border: 0;
+  background: none;
+  perspective: 1000px;
+}
+.skillgrid > .flip::before { display: none; }
+
+.flip-inner {
+  display: grid;
+  transform-style: preserve-3d;
+}
+.face {
+  grid-area: 1 / 1;
+  position: relative;
+  padding: 1rem 1.1rem 1.1rem;
+  border: 1.5px solid var(--ruling);
+  background-color: var(--surface);
+  background-image: var(--grain);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.face.back {
+  transform: rotateY(180deg);
+  border-color: var(--ink);
+}
+.face.back::before {            /* red margin-pen bar along the top of the back */
+  content: "";
+  position: absolute;
+  top: -1.5px;
+  left: -1.5px;
+  right: -1.5px;
+  height: 3px;
+  background: var(--margin);
+}
+.back-title {
+  margin: 0 0 0.5rem !important;
+  font-family: Archivo, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.3;
+  color: var(--ink);
+}
+.face.back p:not(.back-title) { margin: 0; font-size: 0.95rem; line-height: 1.55; }
+.flip-hint {
+  display: block;
+  margin-top: 0.75rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+/* an invisible checkbox covers the card, so a tap or Space bar flips it */
+.flip-toggle {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.flip-toggle:checked ~ .flip-inner { transform: rotateY(180deg); }
+.flip-toggle:focus-visible ~ .flip-inner .face { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+@media (hover: hover) and (pointer: fine) {
+  .flip:hover .flip-inner { transform: rotateY(180deg); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .flip-inner { transition: transform 0.7s var(--lift); }
+}
+
+@media print {
+  .flip-inner { display: block; transform: none !important; }
+  .face, .face.back { transform: none; backface-visibility: visible; }
+  .face.back { margin-top: 0.5rem; }
+  .flip-toggle, .flip-hint, .row::before { display: none; }
+}

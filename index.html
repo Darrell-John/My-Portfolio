@@ -134,9 +134,27 @@
         <h2 id="h-skills">Skills</h2>
         <div class="body">
           <div class="skillgrid">
-            <div><h3>Front end</h3><ul class="stack" aria-label="Built with"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>TypeScript</li><li>React</li><li>Vite</li><li>Tailwind CSS</li></ul></div>
-            <div><h3>Back end and data</h3><ul class="stack" aria-label="Built with"><li>Supabase</li><li>Postgres</li><li>Row-level security</li><li>Auth</li><li>Edge functions</li><li>Python</li></ul></div>
-            <div><h3>Tools and hosting</h3><ul class="stack" aria-label="Built with"><li>Git</li><li>GitHub</li><li>Cloudflare Pages</li></ul></div>
+            <div class="flip">
+              <input class="flip-toggle" type="checkbox" id="flip-front" aria-label="Front end: show where I have used these skills">
+              <div class="flip-inner">
+                <div class="face front"><h3>Front end</h3><ul class="stack" aria-label="Built with"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>TypeScript</li><li>React</li><li>Vite</li><li>Tailwind CSS</li></ul><span class="flip-hint" aria-hidden="true">hover or tap to flip</span></div>
+                <div class="face back"><p class="back-title">Where I used it</p><p>React and Vite in ZimClass. React, TypeScript and Tailwind CSS in the client portfolio management system. Plain HTML, CSS and JavaScript in EduSync, my first full system.</p></div>
+              </div>
+            </div>
+            <div class="flip">
+              <input class="flip-toggle" type="checkbox" id="flip-back" aria-label="Back end and data: show where I have used these skills">
+              <div class="flip-inner">
+                <div class="face front"><h3>Back end and data</h3><ul class="stack" aria-label="Built with"><li>Supabase</li><li>Postgres</li><li>Row-level security</li><li>Auth</li><li>Edge functions</li><li>Python</li></ul><span class="flip-hint" aria-hidden="true">hover or tap to flip</span></div>
+                <div class="face back"><p class="back-title">Where I used it</p><p>Supabase sits behind ZimClass, the portfolio system and EduSync. In ZimClass each school’s data stays separate and access depends on role. In Python I have built linked lists, stacks, queues, trees and heaps.</p></div>
+              </div>
+            </div>
+            <div class="flip">
+              <input class="flip-toggle" type="checkbox" id="flip-tools" aria-label="Tools and hosting: show where I have used these skills">
+              <div class="flip-inner">
+                <div class="face front"><h3>Tools and hosting</h3><ul class="stack" aria-label="Built with"><li>Git</li><li>GitHub</li><li>Cloudflare Pages</li></ul><span class="flip-hint" aria-hidden="true">hover or tap to flip</span></div>
+                <div class="face back"><p class="back-title">Where I used it</p><p>Git and GitHub for my projects, with the source of ZimClass, the portfolio system and ProfExpress on GitHub. ZimClass is hosted on Cloudflare Pages.</p></div>
+              </div>
+            </div>
           </div>
           <p class="next">Next, I am working toward CompTIA Security+ and AWS Cloud Practitioner, with DevSecOps as the direction I want to take.</p>
         </div>
