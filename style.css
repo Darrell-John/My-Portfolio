@@ -1020,3 +1020,87 @@ main.sheet { overflow-x: clip; }
 
 /* ZimClass: the picture frame fits the picture instead of stretching to the text height */
 .board article:nth-child(1) > .shot { align-self: center; }
+
+
+/* =====================================================================
+   3D PASS. Everything sits flat and level at rest; depth comes from
+   solid shadows and highlights. Delete this block to remove it all.
+   ===================================================================== */
+:root { --key: color-mix(in srgb, var(--ink) 62%, black); }
+
+/* 1. Your name: block lettering with a solid extrusion behind each letter */
+.hello .ch {
+  --ext: color-mix(in srgb, var(--ink) 38%, var(--paper));
+  text-shadow:
+    1px 1px 0 var(--ext), 2px 2px 0 var(--ext), 3px 3px 0 var(--ext),
+    4px 4px 0 var(--ext), 5px 5px 0 var(--ext), 6px 6px 0 var(--ext),
+    8px 12px 14px rgba(10, 16, 50, 0.22);
+}
+
+/* 2. Buttons are keys: a solid edge underneath that you press down */
+.btn, .top .nav-cta { box-shadow: 0 4px 0 var(--key), 0 9px 12px -5px var(--glow); }
+.btn.alt, .btn.btn-download { box-shadow: 0 4px 0 var(--ink), 0 9px 12px -5px var(--glow); }
+.top .nav-cta { box-shadow: 0 3px 0 var(--key), 0 8px 10px -5px var(--glow); }
+.theme-toggle { box-shadow: 0 3px 0 var(--ruling); }
+.theme-toggle:active { translate: 0 3px; box-shadow: 0 0 0 var(--ruling); }
+@media (prefers-reduced-motion: no-preference) {
+  .btn, .top .nav-cta, .theme-toggle { transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.2s ease; }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0 var(--key), 0 12px 14px -5px var(--glow); }
+  .btn.alt:hover, .btn.btn-download:hover { box-shadow: 0 6px 0 var(--ink), 0 12px 14px -5px var(--glow); }
+  .top .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 5px 0 var(--key), 0 11px 12px -5px var(--glow); }
+  .btn:active { transform: translateY(4px); box-shadow: 0 0 0 var(--key); }
+  .btn.alt:active, .btn.btn-download:active { box-shadow: 0 0 0 var(--ink); }
+  .top .nav-cta:active { transform: translateY(3px); box-shadow: 0 0 0 var(--key); }
+}
+
+/* 3. Footer buttons become glass spheres */
+.social a {
+  background: radial-gradient(circle at 32% 26%, #4a5380 0%, #1b2033 52%, #0a0d18 100%);
+  box-shadow:
+    0 0 0 2px rgba(var(--rgb), 0.7),
+    inset 0 3px 5px rgba(255, 255, 255, 0.2),
+    inset 0 -7px 10px rgba(0, 0, 0, 0.6),
+    0 9px 12px -3px rgba(0, 0, 0, 0.55),
+    0 0 18px 4px rgba(var(--rgb), 0.5);
+}
+.social a::before {            /* the shine on the top of the sphere */
+  content: "";
+  position: absolute;
+  top: 5%;
+  left: 22%;
+  width: 40%;
+  height: 20%;
+  border-radius: 50%;
+  background: linear-gradient(rgba(255, 255, 255, 0.26), transparent);
+  pointer-events: none;
+}
+.social a svg { position: relative; z-index: 1; }
+.social a:hover,
+.social a:focus-visible {
+  box-shadow:
+    0 0 0 2px rgb(var(--rgb)),
+    inset 0 3px 5px rgba(255, 255, 255, 0.28),
+    inset 0 -7px 10px rgba(0, 0, 0, 0.6),
+    0 12px 14px -3px rgba(0, 0, 0, 0.55),
+    0 0 30px 9px rgba(var(--rgb), 0.7);
+}
+.social a:active { translate: 0 2px; }
+
+/* 4. Cards are a small stack of paper, so they have thickness */
+.board article {
+  box-shadow: 3px 4px 0 var(--ruling), 6px 8px 0 -1px color-mix(in srgb, var(--ruling) 55%, transparent);
+  perspective: 1000px;
+}
+.stack li { box-shadow: 0 2px 0 var(--ruling); }
+
+/* 5. Screenshots and the portrait lean toward your pointer, then settle flat again */
+.shot.is-tilting { transition: rotate 0.08s linear !important; will-change: rotate; }
+@media (prefers-reduced-motion: no-preference) {
+  .photo img { transition: transform 0.25s ease-out; will-change: transform; }
+  .photo.is-tilting img { transition: transform 0.08s linear; }
+}
+
+@media print {
+  .hello .ch { text-shadow: none; }
+  .btn, .top .nav-cta, .stack li { box-shadow: none; }
+}

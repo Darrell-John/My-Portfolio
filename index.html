@@ -326,5 +326,48 @@
       els.forEach(function (el) { el.classList.add("rv"); io.observe(el); });
     })();
   </script>
+  <script>
+    (function () {
+      /* 3D tilt: screenshots and the portrait lean toward the pointer, then go back to flat */
+      if (!window.matchMedia) return;
+      if (!matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+      if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      function offsets(el, e) {
+        var r = el.getBoundingClientRect();
+        return { x: (e.clientX - r.left) / r.width - 0.5, y: (e.clientY - r.top) / r.height - 0.5 };
+      }
+
+      /* screenshots: one rotation about a tilted axis, so two directions can lean at once */
+      document.querySelectorAll(".board .shot").forEach(function (el) {
+        var MAX = 6;
+        el.addEventListener("pointermove", function (e) {
+          var o = offsets(el, e), ax = -o.y * 2, ay = o.x * 2;
+          var ang = Math.sqrt(ax * ax + ay * ay) * MAX;
+          el.classList.add("is-tilting");
+          el.style.rotate = ang < 0.05 ? "0deg" : ax + " " + ay + " 0 " + ang + "deg";
+        });
+        el.addEventListener("pointerleave", function () {
+          el.classList.remove("is-tilting");
+          el.style.rotate = "";
+        });
+      });
+
+      /* portrait */
+      document.querySelectorAll(".photo").forEach(function (el) {
+        var img = el.querySelector("img"), MAX = 9;
+        if (!img) return;
+        el.addEventListener("pointermove", function (e) {
+          var o = offsets(el, e);
+          el.classList.add("is-tilting");
+          img.style.transform = "perspective(700px) rotateX(" + (-o.y * MAX * 2) + "deg) rotateY(" + (o.x * MAX * 2) + "deg)";
+        });
+        el.addEventListener("pointerleave", function () {
+          el.classList.remove("is-tilting");
+          img.style.transform = "";
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
