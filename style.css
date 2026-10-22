@@ -990,3 +990,33 @@ main.sheet { overflow-x: clip; }
 }
 @media (prefers-reduced-motion: reduce) { .cover { animation: none; } }
 @media print { .board article > .shot { rotate: 0deg; } }
+
+/* =====================================================================
+   ALIGNMENT PASS. Straight edges, even rows, equal-height cards.
+   Delete this block to go back to the loose pinboard layout.
+   ===================================================================== */
+@media (min-width: 48.0625rem) {
+  /* ZimClass leads full width; the other four sit in tidy pairs */
+  .board { align-items: stretch; }
+  .board article:nth-child(n+2) { grid-column: span 6; margin-top: 0; }
+  /* links sit on the bottom edge of every card, so the cards finish level */
+  .board article:nth-child(n+2) > .built { margin-top: auto; }
+}
+
+/* Screenshots sit square, and share one frame shape so the text under them starts level */
+.board article > .shot,
+.board article:hover > .shot,
+.board article:focus-within > .shot { rotate: 0deg; }
+.board article:nth-child(n+2) .shot img { aspect-ratio: 16 / 9; object-fit: cover; object-position: top center; }
+
+/* Tape and portrait go on straight too */
+.board article:nth-child(n+4)::before { rotate: 0deg; }
+.photo { rotate: 0deg; animation-name: photo-lay; }
+@keyframes photo-lay {
+  from { opacity: 0; translate: 0 -2rem; rotate: 6deg; }
+  to   { opacity: 1; translate: 0 0; rotate: 0deg; }
+}
+@media (prefers-reduced-motion: reduce) { .photo { animation: none; } }
+
+/* ZimClass: the picture frame fits the picture instead of stretching to the text height */
+.board article:nth-child(1) > .shot { align-self: center; }
